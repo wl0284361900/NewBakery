@@ -18,6 +18,9 @@
 		7C67B5F12436E707002AFDAD /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C67B5EF2436E707002AFDAD /* LoginViewController.xib */; };
 		7C67B5F52436E71B002AFDAD /* HomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C67B5F32436E71B002AFDAD /* HomePageViewController.m */; };
 		7C67B5F62436E71B002AFDAD /* HomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C67B5F42436E71B002AFDAD /* HomePageViewController.xib */; };
+		7C93913924388E0500BA1005 /* ProductMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C93913724388E0500BA1005 /* ProductMenuCollectionViewCell.m */; };
+		7C93913A24388E0500BA1005 /* ProductMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C93913824388E0500BA1005 /* ProductMenuCollectionViewCell.xib */; };
+		7C93913C2438B25C00BA1005 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C93913B2438B25C00BA1005 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,10 @@
 		7C67B5F22436E71B002AFDAD /* HomePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomePageViewController.h; sourceTree = "<group>"; };
 		7C67B5F32436E71B002AFDAD /* HomePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomePageViewController.m; sourceTree = "<group>"; };
 		7C67B5F42436E71B002AFDAD /* HomePageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePageViewController.xib; sourceTree = "<group>"; };
+		7C93913624388E0500BA1005 /* ProductMenuCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductMenuCollectionViewCell.h; sourceTree = "<group>"; };
+		7C93913724388E0500BA1005 /* ProductMenuCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductMenuCollectionViewCell.m; sourceTree = "<group>"; };
+		7C93913824388E0500BA1005 /* ProductMenuCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductMenuCollectionViewCell.xib; sourceTree = "<group>"; };
+		7C93913B2438B25C00BA1005 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +87,7 @@
 				7C67B5D82436E6B9002AFDAD /* ViewController.h */,
 				7C67B5D92436E6B9002AFDAD /* ViewController.m */,
 				7C67B5DB2436E6B9002AFDAD /* Main.storyboard */,
+				7C93913B2438B25C00BA1005 /* GoogleService-Info.plist */,
 				7C67B5DE2436E6BB002AFDAD /* Assets.xcassets */,
 				7C67B5E02436E6BB002AFDAD /* LaunchScreen.storyboard */,
 				7C67B5E32436E6BB002AFDAD /* Info.plist */,
@@ -104,6 +112,9 @@
 				7C67B5F22436E71B002AFDAD /* HomePageViewController.h */,
 				7C67B5F32436E71B002AFDAD /* HomePageViewController.m */,
 				7C67B5F42436E71B002AFDAD /* HomePageViewController.xib */,
+				7C93913624388E0500BA1005 /* ProductMenuCollectionViewCell.h */,
+				7C93913724388E0500BA1005 /* ProductMenuCollectionViewCell.m */,
+				7C93913824388E0500BA1005 /* ProductMenuCollectionViewCell.xib */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -168,8 +179,10 @@
 				7C67B5F12436E707002AFDAD /* LoginViewController.xib in Resources */,
 				7C67B5F62436E71B002AFDAD /* HomePageViewController.xib in Resources */,
 				7C67B5E22436E6BB002AFDAD /* LaunchScreen.storyboard in Resources */,
+				7C93913A24388E0500BA1005 /* ProductMenuCollectionViewCell.xib in Resources */,
 				7C67B5DF2436E6BB002AFDAD /* Assets.xcassets in Resources */,
 				7C67B5DD2436E6B9002AFDAD /* Main.storyboard in Resources */,
+				7C93913C2438B25C00BA1005 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C93913924388E0500BA1005 /* ProductMenuCollectionViewCell.m in Sources */,
 				7C67B5DA2436E6B9002AFDAD /* ViewController.m in Sources */,
 				7C67B5D42436E6B9002AFDAD /* AppDelegate.m in Sources */,
 				7C67B5F52436E71B002AFDAD /* HomePageViewController.m in Sources */,

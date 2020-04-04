@@ -7,8 +7,10 @@
 //
 
 #import "HomePageViewController.h"
+#import "ProductMenuCollectionViewCell.h"
 
-@interface HomePageViewController (){
+#define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
+@interface HomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     NSArray *productMenuArr;
     
     //決定mScrollView Content
@@ -16,11 +18,22 @@
     NSInteger headSpacing;
     NSInteger btnSpacing;
     NSInteger btnTotalWidth;
+    
+    //collection
+    
+    
 }
+
+
 @property (weak, nonatomic) IBOutlet UIScrollView *mscrollView;
 @property (weak, nonatomic) IBOutlet UICollectionView *mcollectionView;
 
 @end
+
+static const CGFloat kColumnSpacing = 10.f; //列
+static const CGFloat kRowSpacing = 10.f;    //行
+static const CGFloat kCellMargins = 10.f;   //左右邊界
+static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 
 @implementation HomePageViewController
 
@@ -31,7 +44,7 @@
     
     productMenuArr = [[NSArray alloc]initWithObjects:@"首頁",@"熱門商品",@"吐司類",@"蛋糕類",@"麵包類", nil];
     
-    
+    //button into scrollView(Frame)
     //創建button
     btnTotalWidth = 0;
     btnSpacing = 0;
@@ -54,9 +67,15 @@
     _mscrollView.contentSize = CGSizeMake((spacing * (productMenuArr.count - 1))+ btnTotalWidth + (headSpacing * 2), 0);
     
     
-    //button into scrollView(Frame)
+    
     
     //collectionView creat
+    self.mcollectionView.delegate = self;
+    self.mcollectionView.dataSource = self;
+    self.mcollectionView.pagingEnabled = NO;
+    [self.mcollectionView registerNib:[UINib nibWithNibName:@"ProductMenuCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"cell"];
+    
+    
     
 }
 
@@ -73,6 +92,40 @@
     return btn;
 }
 
+
+#pragma mark - CollectionViewDataSource
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    ProductMenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    cell.pNameLb.adjustsFontSizeToFitWidth = YES;   //依照label寬度 自適應字體大小
+    return cell;
+}
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 20;
+}
+
+#pragma mark - CollectionDelegate
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    //依照Cell的Size決定該Row顯示幾個Cell
+    //kCellMargins = 左右邊界各10
+    float width = (kScreenWidth - kRowSpacing - (kCellMargins * 2)) / kRowNumber;
+    return CGSizeMake(width, width);
+}
+
+#pragma mark - CollectionViewFlowLayout
+//边距设置:整体边距的优先级，始终高于内部边距的优先级
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
+    return UIEdgeInsetsMake(0, kRowSpacing, 15, kRowSpacing);
+}
+
+//item行與行的間距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return kRowSpacing;
+}
+//item列與列的間距
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return kColumnSpacing;
+}
 
 
 @end

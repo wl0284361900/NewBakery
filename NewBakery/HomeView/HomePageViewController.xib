@@ -60,7 +60,7 @@
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="cly-T1-1jY">
-                    <rect key="frame" x="0.0" y="199" width="414" height="663"/>
+                    <rect key="frame" x="0.0" y="187" width="414" height="675"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="z5g-ab-iEO">
                         <size key="itemSize" width="128" height="128"/>
@@ -73,7 +73,7 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="RFi-Bv-zKH" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="2Of-jN-H5u"/>
-                <constraint firstItem="cly-T1-1jY" firstAttribute="top" secondItem="RFi-Bv-zKH" secondAttribute="bottom" constant="27" id="4f8-0D-4sf"/>
+                <constraint firstItem="cly-T1-1jY" firstAttribute="top" secondItem="RFi-Bv-zKH" secondAttribute="bottom" constant="15" id="4f8-0D-4sf"/>
                 <constraint firstItem="RFi-Bv-zKH" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="C0u-B4-e1z"/>
                 <constraint firstItem="cly-T1-1jY" firstAttribute="bottom" secondItem="Q5M-cg-NOt" secondAttribute="bottom" constant="0.10000000000000001" id="EvS-4J-SAM"/>
                 <constraint firstItem="cly-T1-1jY" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" constant="0.10000000000000001" id="QZi-8z-DBs"/>
