@@ -7,16 +7,20 @@
 //
 
 #import "AppDelegate.h"
-
+#import <FirebaseFirestore/FirebaseFirestore.h>
+@import Firebase;
 @interface AppDelegate ()
 
 @end
+
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [FIRApp configure];
+    FIRFirestore *defaultFirestore = [FIRFirestore firestore];
     return YES;
 }
 

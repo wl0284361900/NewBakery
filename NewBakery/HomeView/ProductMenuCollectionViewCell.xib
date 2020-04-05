@@ -25,23 +25,31 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eaj-AG-1PH">
+                        <rect key="frame" x="24.5" y="20" width="151" height="128"/>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="eaj-AG-1PH" firstAttribute="width" secondItem="5i9-th-zhQ" secondAttribute="width" multiplier="0.755" id="8ii-2U-WdB"/>
+                <constraint firstItem="eaj-AG-1PH" firstAttribute="height" secondItem="5i9-th-zhQ" secondAttribute="height" multiplier="0.64" id="Ff0-S9-EdM"/>
                 <constraint firstAttribute="trailing" secondItem="5i9-th-zhQ" secondAttribute="trailing" constant="0.10000000000000001" id="Hwg-R0-noP"/>
                 <constraint firstItem="MHf-Oe-FFU" firstAttribute="width" secondItem="5i9-th-zhQ" secondAttribute="width" multiplier="0.52" id="P2n-3n-AZL"/>
                 <constraint firstItem="5i9-th-zhQ" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="0.10000000000000001" id="b92-Ex-7oE"/>
                 <constraint firstItem="MHf-Oe-FFU" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" multiplier="8/5" constant="6" id="bq0-CM-gHt"/>
+                <constraint firstItem="eaj-AG-1PH" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="cOt-dI-Za7"/>
                 <constraint firstAttribute="bottom" secondItem="5i9-th-zhQ" secondAttribute="bottom" constant="0.10000000000000001" id="d4f-g3-vtj"/>
                 <constraint firstAttribute="trailing" secondItem="MHf-Oe-FFU" secondAttribute="trailing" constant="27" id="dQu-Pm-WLu"/>
                 <constraint firstItem="5i9-th-zhQ" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="0.10000000000000001" id="wu8-1e-Q5v"/>
+                <constraint firstItem="MHf-Oe-FFU" firstAttribute="top" secondItem="eaj-AG-1PH" secondAttribute="bottom" constant="7.5" id="ySH-Cr-uBz"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
             <connections>
-                <outlet property="pImg" destination="5i9-th-zhQ" id="BsB-Ft-4tF"/>
+                <outlet property="pBGImg" destination="5i9-th-zhQ" id="DLO-cx-P6M"/>
+                <outlet property="pImg" destination="eaj-AG-1PH" id="p1d-xS-CLc"/>
                 <outlet property="pNameLb" destination="MHf-Oe-FFU" id="bKo-yw-ueq"/>
             </connections>
-            <point key="canvasLocation" x="139" y="124"/>
+            <point key="canvasLocation" x="137.68115942028987" y="123.88392857142857"/>
         </collectionViewCell>
     </objects>
     <resources>

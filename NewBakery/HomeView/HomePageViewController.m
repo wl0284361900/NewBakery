@@ -9,21 +9,21 @@
 #import "HomePageViewController.h"
 #import "ProductMenuCollectionViewCell.h"
 
+#import <SDWebImage/SDWebImage.h>
+#import <FirebaseFirestore/FirebaseFirestore.h>
 #define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
+
 @interface HomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
-    NSArray *productMenuArr;
-    
+    NSArray *productMenuArr;    //scrollView上的種類
+    NSMutableArray *productArr; //所有商品
     //決定mScrollView Content
     NSInteger spacing;
     NSInteger headSpacing;
     NSInteger btnSpacing;
     NSInteger btnTotalWidth;
     
-    //collection
-    
-    
 }
-
+@property (strong, nonatomic) FIRFirestore *db;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *mscrollView;
 @property (weak, nonatomic) IBOutlet UICollectionView *mcollectionView;
@@ -75,8 +75,11 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     self.mcollectionView.pagingEnabled = NO;
     [self.mcollectionView registerNib:[UINib nibWithNibName:@"ProductMenuCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"cell"];
     
-    
-    
+    productArr = [NSMutableArray arrayWithArray:self.productArr];
+//    self.productArr = [];
+    //firebase
+//    self.db = [FIRFirestore firestore];
+//    [self readFirebase];
 }
 
 //button創建的function
@@ -92,16 +95,36 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     return btn;
 }
 
+#pragma mark - Firebase
+- (void)readFirebase{
+    //讀取 //撈該集合所有文件
+    [[self.db collectionWithPath:@"ProductInfo"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
+        if(snapshot.count == 0){
+            return;
+        }
+        for(FIRDocumentSnapshot *docSnapshot in snapshot.documents){
+            [self->_productArr addObject:docSnapshot.data];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"self.productArr:%@", self->_productArr);
+            [self.mcollectionView reloadData];
+        });
+    }];
+}
+
 
 #pragma mark - CollectionViewDataSource
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ProductMenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     cell.pNameLb.adjustsFontSizeToFitWidth = YES;   //依照label寬度 自適應字體大小
+    cell.pNameLb.text = productArr[indexPath.row][@"name"];
+    [cell.pImg sd_setImageWithURL:[NSURL URLWithString:productArr[indexPath.row][@"img"]]];
+    
     return cell;
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 20;
+    return productArr.count;
 }
 
 #pragma mark - CollectionDelegate

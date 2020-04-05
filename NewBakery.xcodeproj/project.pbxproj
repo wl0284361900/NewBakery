@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		196BC8B3883C469FCA66A765 /* Pods_NewBakery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 812DC59513D8907F019A67EF /* Pods_NewBakery.framework */; };
 		7C67B5D42436E6B9002AFDAD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C67B5D32436E6B9002AFDAD /* AppDelegate.m */; };
 		7C67B5D72436E6B9002AFDAD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C67B5D62436E6B9002AFDAD /* SceneDelegate.m */; };
 		7C67B5DA2436E6B9002AFDAD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C67B5D92436E6B9002AFDAD /* ViewController.m */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		53F2A5AE59004D588A90A872 /* Pods-NewBakery.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewBakery.debug.xcconfig"; path = "Target Support Files/Pods-NewBakery/Pods-NewBakery.debug.xcconfig"; sourceTree = "<group>"; };
 		7C67B5CF2436E6B9002AFDAD /* NewBakery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewBakery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C67B5D22436E6B9002AFDAD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7C67B5D32436E6B9002AFDAD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -46,6 +48,8 @@
 		7C93913724388E0500BA1005 /* ProductMenuCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductMenuCollectionViewCell.m; sourceTree = "<group>"; };
 		7C93913824388E0500BA1005 /* ProductMenuCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductMenuCollectionViewCell.xib; sourceTree = "<group>"; };
 		7C93913B2438B25C00BA1005 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		812DC59513D8907F019A67EF /* Pods_NewBakery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewBakery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F34CB2513DAB7DA6A5928FF /* Pods-NewBakery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewBakery.release.xcconfig"; path = "Target Support Files/Pods-NewBakery/Pods-NewBakery.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,17 +57,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				196BC8B3883C469FCA66A765 /* Pods_NewBakery.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		66A9347241B6C3FCCF2A7AA0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				812DC59513D8907F019A67EF /* Pods_NewBakery.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		7C67B5C62436E6B9002AFDAD = {
 			isa = PBXGroup;
 			children = (
 				7C67B5D12436E6B9002AFDAD /* NewBakery */,
 				7C67B5D02436E6B9002AFDAD /* Products */,
+				9D0C1F9002DC9630FF60B95D /* Pods */,
+				66A9347241B6C3FCCF2A7AA0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,6 +134,15 @@
 			path = HomeView;
 			sourceTree = "<group>";
 		};
+		9D0C1F9002DC9630FF60B95D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				53F2A5AE59004D588A90A872 /* Pods-NewBakery.debug.xcconfig */,
+				9F34CB2513DAB7DA6A5928FF /* Pods-NewBakery.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +150,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7C67B5E82436E6BC002AFDAD /* Build configuration list for PBXNativeTarget "NewBakery" */;
 			buildPhases = (
+				A1A82C390E9135CC69E0A0EE /* [CP] Check Pods Manifest.lock */,
 				7C67B5CB2436E6B9002AFDAD /* Sources */,
 				7C67B5CC2436E6B9002AFDAD /* Frameworks */,
 				7C67B5CD2436E6B9002AFDAD /* Resources */,
+				08416292620E3447F23B34D7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -187,6 +213,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		08416292620E3447F23B34D7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewBakery/Pods-NewBakery-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NewBakery/Pods-NewBakery-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NewBakery/Pods-NewBakery-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1A82C390E9135CC69E0A0EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NewBakery-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7C67B5CB2436E6B9002AFDAD /* Sources */ = {
@@ -275,7 +343,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -327,7 +395,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -337,10 +405,13 @@
 		};
 		7C67B5E92436E6BC002AFDAD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53F2A5AE59004D588A90A872 /* Pods-NewBakery.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R2WA88VZ6Q;
+				DEVELOPMENT_TEAM = W45KWGMF5S;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = NewBakery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -354,10 +425,13 @@
 		};
 		7C67B5EA2436E6BC002AFDAD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F34CB2513DAB7DA6A5928FF /* Pods-NewBakery.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = R2WA88VZ6Q;
+				DEVELOPMENT_TEAM = W45KWGMF5S;
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = NewBakery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

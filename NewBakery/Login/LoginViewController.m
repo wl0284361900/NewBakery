@@ -10,8 +10,8 @@
 
 @interface LoginViewController ()
 
-@end
 
+@end
 @implementation LoginViewController
 
 - (void)viewDidLoad {
@@ -20,6 +20,9 @@
     //Line登入
     
     
+    
+    // child 是增加欄位
+    //setvalue 是寫入欄位中的值
 }
 
 
