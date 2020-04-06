@@ -13,15 +13,16 @@
 #import <FirebaseFirestore/FirebaseFirestore.h>
 #define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
 
-typedef NS_ENUM(NSUInteger, productType) {
-    Bread = 0,
+
+typedef enum productType{
+    Bread,
     Snack,
     Toast
-};
+}productType;
 
 @interface HomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     
-    productType type;
+//    productType type;
     
     NSArray *productMenuArr;    //scrollView上的種類
     NSMutableArray *productArr; //所有商品
@@ -39,11 +40,8 @@ typedef NS_ENUM(NSUInteger, productType) {
     NSInteger btnTotalWidth;
     NSInteger btnTag;
     
-    
-    
-    
-    
 }
+
 @property (strong, nonatomic) FIRFirestore *db;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *mscrollView;
@@ -75,13 +73,27 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
         if([dic[@"popular"] isEqualToNumber:@1]){
             [popularArr addObject:dic];
         }
-        if([dic[@"type"]isEqualToNumber:@0]){
-            [breadArr addObject:dic];
-        }else if([dic[@"type"]isEqualToNumber:@1]){
-            [SnackArr addObject:dic];
-        }else if([dic[@"type"]isEqualToNumber:@2]){
-            [ToastArr addObject:dic];
+        
+        switch ([dic[@"type"] integerValue]) {
+            case Bread:
+                [breadArr addObject:dic];
+                break;
+            case Snack:
+                [SnackArr addObject:dic];
+                break;
+            case Toast:
+                [ToastArr addObject:dic];
+                break;
+            default:
+                break;
         }
+//        if([dic[@"type"]isEqualToNumber:@0]){
+//            [breadArr addObject:dic];
+//        }else if([dic[@"type"]isEqualToNumber:@1]){
+//            [SnackArr addObject:dic];
+//        }else if([dic[@"type"]isEqualToNumber:@2]){
+//            [ToastArr addObject:dic];
+//        }
     }
     //初始化是顯示所有商品（首頁）
     productArr = allProductArr;
@@ -205,24 +217,7 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 //    }];
 //}
 
-#pragma mark - 轉換
-//將資料庫麵包種類轉換成Enum
-- (productType) transferIntToProductType:(NSInteger)tmp{
-    switch (tmp) {
-        case 0:
-            return Bread;
-            break;
-        case 1:
-            return Snack;
-            break;
-        case 2:
-            return Toast;
-            break;
-        default:
-            break;
-    }
-    return Bread;
-}
+
 
 #pragma mark - CollectionViewDataSource
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -235,8 +230,7 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     [cell.pImg sd_setImageWithURL:[NSURL URLWithString:productArr[indexPath.row][@"img"]]];
     
     //判斷該麵包是哪一種種類 對應 背景圖
-    productType type = [self transferIntToProductType:[productArr[indexPath.row][@"type"]integerValue]];
-    switch (type) {
+    switch ([productArr[indexPath.row][@"type"]integerValue]) {
         case Bread:
             cell.pBGImg.image = [UIImage imageNamed:@"BreadMenuBG.png"];
             break;
