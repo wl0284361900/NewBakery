@@ -13,14 +13,35 @@
 #import <FirebaseFirestore/FirebaseFirestore.h>
 #define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
 
+typedef NS_ENUM(NSUInteger, productType) {
+    Bread = 0,
+    Snack,
+    Toast
+};
+
 @interface HomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
+    
+    productType type;
+    
     NSArray *productMenuArr;    //scrollView上的種類
     NSMutableArray *productArr; //所有商品
+    NSMutableArray *allProductArr;  //首頁
+    NSMutableArray *popularArr;     //熱門
+    NSMutableArray *breadArr;       //麵包類
+    NSMutableArray *SnackArr;       //點心類
+    NSMutableArray *ToastArr;       //吐司類
+    NSMutableArray *btnMutArr;  //用來存放所有ProductMenuBtn的陣列
+    
     //決定mScrollView Content
     NSInteger spacing;
     NSInteger headSpacing;
     NSInteger btnSpacing;
     NSInteger btnTotalWidth;
+    NSInteger btnTag;
+    
+    
+    
+    
     
 }
 @property (strong, nonatomic) FIRFirestore *db;
@@ -43,11 +64,34 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     self.navigationController.navigationBar.hidden = YES;
     
     productMenuArr = [[NSArray alloc]initWithObjects:@"首頁",@"熱門商品",@"吐司類",@"蛋糕類",@"麵包類", nil];
+    productArr = [[NSMutableArray alloc]initWithCapacity:0];
+    allProductArr = [NSMutableArray arrayWithArray:self.tr_productArr];
+    popularArr = [[NSMutableArray alloc]initWithCapacity:0];
+    breadArr = [[NSMutableArray alloc]initWithCapacity:0];
+    SnackArr = [[NSMutableArray alloc]initWithCapacity:0];
+    ToastArr = [[NSMutableArray alloc]initWithCapacity:0];
+    //分類
+    for(NSDictionary *dic in allProductArr){
+        if([dic[@"popular"] isEqualToNumber:@1]){
+            [popularArr addObject:dic];
+        }
+        if([dic[@"type"]isEqualToNumber:@0]){
+            [breadArr addObject:dic];
+        }else if([dic[@"type"]isEqualToNumber:@1]){
+            [SnackArr addObject:dic];
+        }else if([dic[@"type"]isEqualToNumber:@2]){
+            [ToastArr addObject:dic];
+        }
+    }
+    //初始化是顯示所有商品（首頁）
+    productArr = allProductArr;
     
     //button into scrollView(Frame)
     //創建button
     btnTotalWidth = 0;
     btnSpacing = 0;
+    btnTag = 0;
+    btnMutArr = [[NSMutableArray alloc]initWithCapacity:0];
     for(int i = 0; i < 5; i++){
         if(i == 0){
             headSpacing = 30;
@@ -66,20 +110,26 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     //設定scrollView content size
     _mscrollView.contentSize = CGSizeMake((spacing * (productMenuArr.count - 1))+ btnTotalWidth + (headSpacing * 2), 0);
     
-    
-    
-    
+
     //collectionView creat
     self.mcollectionView.delegate = self;
     self.mcollectionView.dataSource = self;
     self.mcollectionView.pagingEnabled = NO;
     [self.mcollectionView registerNib:[UINib nibWithNibName:@"ProductMenuCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"cell"];
+
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    //離開此頁面 初始化
+    for(UIButton *btn in btnMutArr){
+        if(btn.tag == 0){
+            [btn.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
+        }
+        [btn.titleLabel setFont:[UIFont fontWithName:@"System" size:17.0f]];
+    }
     
-    productArr = [NSMutableArray arrayWithArray:self.productArr];
-//    self.productArr = [];
-    //firebase
-//    self.db = [FIRFirestore firestore];
-//    [self readFirebase];
+    //頁面載入也要
+    
 }
 
 //button創建的function
@@ -88,37 +138,118 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     [btn setTitle:title forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor brownColor] forState:UIControlStateNormal];
     // 順序不能改變
-    btn.titleLabel.font = [UIFont systemFontOfSize:17.0f];
+    if(btnTag == 0){
+        [btn.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
+    }else{
+        [btn.titleLabel setFont:[UIFont fontWithName:@"System" size:17.0f]];
+    }
     [btn sizeToFit];    //button大小自適應字體大小
     btn.center = CGPointMake(0, self.mscrollView.frame.size.height * 0.5);
     btn.frame = CGRectMake(btnSpacing+btnTotalWidth, btn.frame.origin.y, btn.frame.size.width, btn.frame.size.height);
+    btn.tag = btnTag;
+    btnTag++;
+    [btn addTarget:self action:@selector(clickProductMenu:) forControlEvents:UIControlEventTouchUpInside];
+    [btnMutArr addObject:btn];
     return btn;
 }
 
-#pragma mark - Firebase
-- (void)readFirebase{
-    //讀取 //撈該集合所有文件
-    [[self.db collectionWithPath:@"ProductInfo"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
-        if(snapshot.count == 0){
-            return;
-        }
-        for(FIRDocumentSnapshot *docSnapshot in snapshot.documents){
-            [self->_productArr addObject:docSnapshot.data];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"self.productArr:%@", self->_productArr);
-            [self.mcollectionView reloadData];
-        });
-    }];
+- (void)clickProductMenu:(UIButton *)sender{
+    //所有按鈕初始化
+    for(UIButton *btn in btnMutArr){
+        [btn.titleLabel setFont:[UIFont fontWithName:@"System" size:17.0f]];
+    }
+    
+    //加粗
+    [sender.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
+    [sender sizeToFit];
+    
+    switch (sender.tag) {
+        case 0:
+            productArr = allProductArr;
+            break;
+        case 1:
+            productArr = popularArr;
+            break;
+        case 2:
+            productArr = ToastArr;
+            break;
+        case 3:
+            productArr = SnackArr;
+            break;
+        case 4:
+            productArr = breadArr;
+            break;
+        default:
+            break;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.mcollectionView reloadData];
+    });
+    
+    
 }
+#pragma mark - Firebase
+//- (void)readFirebase{
+//    //讀取 //撈該集合所有文件
+//    [[self.db collectionWithPath:@"ProductInfo"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
+//        if(snapshot.count == 0){
+//            return;
+//        }
+//        for(FIRDocumentSnapshot *docSnapshot in snapshot.documents){
+//            [self->_productArr addObject:docSnapshot.data];
+//        }
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            NSLog(@"self.productArr:%@", self->_productArr);
+//            [self.mcollectionView reloadData];
+//        });
+//    }];
+//}
 
+#pragma mark - 轉換
+//將資料庫麵包種類轉換成Enum
+- (productType) transferIntToProductType:(NSInteger)tmp{
+    switch (tmp) {
+        case 0:
+            return Bread;
+            break;
+        case 1:
+            return Snack;
+            break;
+        case 2:
+            return Toast;
+            break;
+        default:
+            break;
+    }
+    return Bread;
+}
 
 #pragma mark - CollectionViewDataSource
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ProductMenuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    
     cell.pNameLb.adjustsFontSizeToFitWidth = YES;   //依照label寬度 自適應字體大小
     cell.pNameLb.text = productArr[indexPath.row][@"name"];
+    
+    //麵包圖片
     [cell.pImg sd_setImageWithURL:[NSURL URLWithString:productArr[indexPath.row][@"img"]]];
+    
+    //判斷該麵包是哪一種種類 對應 背景圖
+    productType type = [self transferIntToProductType:[productArr[indexPath.row][@"type"]integerValue]];
+    switch (type) {
+        case Bread:
+            cell.pBGImg.image = [UIImage imageNamed:@"BreadMenuBG.png"];
+            break;
+        case Snack:
+            cell.pBGImg.image = [UIImage imageNamed:@"CakeMenuBG.png"];
+            break;
+        case Toast:
+            cell.pBGImg.image = [UIImage imageNamed:@"ToastMenuBG.png"];
+            break;
+        default:
+            break;
+    }
+    
     
     return cell;
 }

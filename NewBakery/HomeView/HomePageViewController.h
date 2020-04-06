@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HomePageViewController : UIViewController
 
-@property (strong, nonatomic) NSMutableArray *productArr;
+@property (strong, nonatomic) NSMutableArray *tr_productArr;
 @end
 
 NS_ASSUME_NONNULL_END

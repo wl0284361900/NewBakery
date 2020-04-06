@@ -81,7 +81,7 @@
 
 - (void) nextView{
     HomePageViewController *home = [[HomePageViewController alloc]initWithNibName:@"HomePageViewController" bundle:[NSBundle mainBundle]];
-    home.productArr = self.productArr;
+    home.tr_productArr = self.productArr;
     [self.navigationController pushViewController:home animated:YES];
     
 }
