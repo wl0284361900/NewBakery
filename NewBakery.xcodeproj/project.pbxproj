@@ -22,6 +22,8 @@
 		7C93913924388E0500BA1005 /* ProductMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C93913724388E0500BA1005 /* ProductMenuCollectionViewCell.m */; };
 		7C93913A24388E0500BA1005 /* ProductMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C93913824388E0500BA1005 /* ProductMenuCollectionViewCell.xib */; };
 		7C93913C2438B25C00BA1005 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C93913B2438B25C00BA1005 /* GoogleService-Info.plist */; };
+		88164042243B9A4300E24377 /* ProductIntroduceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88164040243B9A4300E24377 /* ProductIntroduceViewController.m */; };
+		88164043243B9A4300E24377 /* ProductIntroduceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88164041243B9A4300E24377 /* ProductIntroduceViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,10 @@
 		7C93913824388E0500BA1005 /* ProductMenuCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductMenuCollectionViewCell.xib; sourceTree = "<group>"; };
 		7C93913B2438B25C00BA1005 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		812DC59513D8907F019A67EF /* Pods_NewBakery.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewBakery.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8816403D243B98EC00E24377 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		8816403F243B9A4300E24377 /* ProductIntroduceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductIntroduceViewController.h; sourceTree = "<group>"; };
+		88164040243B9A4300E24377 /* ProductIntroduceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductIntroduceViewController.m; sourceTree = "<group>"; };
+		88164041243B9A4300E24377 /* ProductIntroduceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductIntroduceViewController.xib; sourceTree = "<group>"; };
 		9F34CB2513DAB7DA6A5928FF /* Pods-NewBakery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewBakery.release.xcconfig"; path = "Target Support Files/Pods-NewBakery/Pods-NewBakery.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -95,6 +101,7 @@
 			children = (
 				7C67B5EB2436E6E7002AFDAD /* Login */,
 				7C67B5EC2436E6F4002AFDAD /* HomeView */,
+				8816403E243B9A1A00E24377 /* ProductIntroduce */,
 				7C67B5D22436E6B9002AFDAD /* AppDelegate.h */,
 				7C67B5D32436E6B9002AFDAD /* AppDelegate.m */,
 				7C67B5D52436E6B9002AFDAD /* SceneDelegate.h */,
@@ -103,6 +110,7 @@
 				7C67B5D92436E6B9002AFDAD /* ViewController.m */,
 				7C67B5DB2436E6B9002AFDAD /* Main.storyboard */,
 				7C93913B2438B25C00BA1005 /* GoogleService-Info.plist */,
+				8816403D243B98EC00E24377 /* PrefixHeader.pch */,
 				7C67B5DE2436E6BB002AFDAD /* Assets.xcassets */,
 				7C67B5E02436E6BB002AFDAD /* LaunchScreen.storyboard */,
 				7C67B5E32436E6BB002AFDAD /* Info.plist */,
@@ -132,6 +140,16 @@
 				7C93913824388E0500BA1005 /* ProductMenuCollectionViewCell.xib */,
 			);
 			path = HomeView;
+			sourceTree = "<group>";
+		};
+		8816403E243B9A1A00E24377 /* ProductIntroduce */ = {
+			isa = PBXGroup;
+			children = (
+				8816403F243B9A4300E24377 /* ProductIntroduceViewController.h */,
+				88164040243B9A4300E24377 /* ProductIntroduceViewController.m */,
+				88164041243B9A4300E24377 /* ProductIntroduceViewController.xib */,
+			);
+			path = ProductIntroduce;
 			sourceTree = "<group>";
 		};
 		9D0C1F9002DC9630FF60B95D /* Pods */ = {
@@ -202,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88164043243B9A4300E24377 /* ProductIntroduceViewController.xib in Resources */,
 				7C67B5F12436E707002AFDAD /* LoginViewController.xib in Resources */,
 				7C67B5F62436E71B002AFDAD /* HomePageViewController.xib in Resources */,
 				7C67B5E22436E6BB002AFDAD /* LaunchScreen.storyboard in Resources */,
@@ -261,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88164042243B9A4300E24377 /* ProductIntroduceViewController.m in Sources */,
 				7C93913924388E0500BA1005 /* ProductMenuCollectionViewCell.m in Sources */,
 				7C67B5DA2436E6B9002AFDAD /* ViewController.m in Sources */,
 				7C67B5D42436E6B9002AFDAD /* AppDelegate.m in Sources */,
@@ -411,6 +431,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W45KWGMF5S;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/NewBakery/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = NewBakery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -431,6 +452,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W45KWGMF5S;
+				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/NewBakery/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = NewBakery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

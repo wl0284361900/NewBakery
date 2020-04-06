@@ -11,8 +11,7 @@
 
 #import <SDWebImage/SDWebImage.h>
 #import <FirebaseFirestore/FirebaseFirestore.h>
-#define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
-
+//#import "PrefixHeader.pch"/
 
 typedef enum productType{
     Bread,
