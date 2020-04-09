@@ -24,6 +24,10 @@
 		7C93913C2438B25C00BA1005 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C93913B2438B25C00BA1005 /* GoogleService-Info.plist */; };
 		88164042243B9A4300E24377 /* ProductIntroduceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88164040243B9A4300E24377 /* ProductIntroduceViewController.m */; };
 		88164043243B9A4300E24377 /* ProductIntroduceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88164041243B9A4300E24377 /* ProductIntroduceViewController.xib */; };
+		88CDFE4C243F8F52005C1A29 /* ConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CDFE4A243F8F52005C1A29 /* ConfirmViewController.m */; };
+		88CDFE4D243F8F52005C1A29 /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88CDFE4B243F8F52005C1A29 /* ConfirmViewController.xib */; };
+		88CDFE51243F9ABD005C1A29 /* ProductListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CDFE4F243F9ABD005C1A29 /* ProductListTableViewCell.m */; };
+		88CDFE52243F9ABD005C1A29 /* ProductListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88CDFE50243F9ABD005C1A29 /* ProductListTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +59,12 @@
 		8816403F243B9A4300E24377 /* ProductIntroduceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductIntroduceViewController.h; sourceTree = "<group>"; };
 		88164040243B9A4300E24377 /* ProductIntroduceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductIntroduceViewController.m; sourceTree = "<group>"; };
 		88164041243B9A4300E24377 /* ProductIntroduceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductIntroduceViewController.xib; sourceTree = "<group>"; };
+		88CDFE49243F8F52005C1A29 /* ConfirmViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfirmViewController.h; sourceTree = "<group>"; };
+		88CDFE4A243F8F52005C1A29 /* ConfirmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfirmViewController.m; sourceTree = "<group>"; };
+		88CDFE4B243F8F52005C1A29 /* ConfirmViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmViewController.xib; sourceTree = "<group>"; };
+		88CDFE4E243F9ABD005C1A29 /* ProductListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductListTableViewCell.h; sourceTree = "<group>"; };
+		88CDFE4F243F9ABD005C1A29 /* ProductListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductListTableViewCell.m; sourceTree = "<group>"; };
+		88CDFE50243F9ABD005C1A29 /* ProductListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductListTableViewCell.xib; sourceTree = "<group>"; };
 		9F34CB2513DAB7DA6A5928FF /* Pods-NewBakery.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewBakery.release.xcconfig"; path = "Target Support Files/Pods-NewBakery/Pods-NewBakery.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +112,7 @@
 				7C67B5EB2436E6E7002AFDAD /* Login */,
 				7C67B5EC2436E6F4002AFDAD /* HomeView */,
 				8816403E243B9A1A00E24377 /* ProductIntroduce */,
+				88CDFE48243F8F2D005C1A29 /* ConfirmViewController */,
 				7C67B5D22436E6B9002AFDAD /* AppDelegate.h */,
 				7C67B5D32436E6B9002AFDAD /* AppDelegate.m */,
 				7C67B5D52436E6B9002AFDAD /* SceneDelegate.h */,
@@ -150,6 +161,19 @@
 				88164041243B9A4300E24377 /* ProductIntroduceViewController.xib */,
 			);
 			path = ProductIntroduce;
+			sourceTree = "<group>";
+		};
+		88CDFE48243F8F2D005C1A29 /* ConfirmViewController */ = {
+			isa = PBXGroup;
+			children = (
+				88CDFE49243F8F52005C1A29 /* ConfirmViewController.h */,
+				88CDFE4A243F8F52005C1A29 /* ConfirmViewController.m */,
+				88CDFE4B243F8F52005C1A29 /* ConfirmViewController.xib */,
+				88CDFE4E243F9ABD005C1A29 /* ProductListTableViewCell.h */,
+				88CDFE4F243F9ABD005C1A29 /* ProductListTableViewCell.m */,
+				88CDFE50243F9ABD005C1A29 /* ProductListTableViewCell.xib */,
+			);
+			path = ConfirmViewController;
 			sourceTree = "<group>";
 		};
 		9D0C1F9002DC9630FF60B95D /* Pods */ = {
@@ -225,9 +249,11 @@
 				7C67B5F62436E71B002AFDAD /* HomePageViewController.xib in Resources */,
 				7C67B5E22436E6BB002AFDAD /* LaunchScreen.storyboard in Resources */,
 				7C93913A24388E0500BA1005 /* ProductMenuCollectionViewCell.xib in Resources */,
+				88CDFE52243F9ABD005C1A29 /* ProductListTableViewCell.xib in Resources */,
 				7C67B5DF2436E6BB002AFDAD /* Assets.xcassets in Resources */,
 				7C67B5DD2436E6B9002AFDAD /* Main.storyboard in Resources */,
 				7C93913C2438B25C00BA1005 /* GoogleService-Info.plist in Resources */,
+				88CDFE4D243F8F52005C1A29 /* ConfirmViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +312,8 @@
 				7C67B5D42436E6B9002AFDAD /* AppDelegate.m in Sources */,
 				7C67B5F52436E71B002AFDAD /* HomePageViewController.m in Sources */,
 				7C67B5E52436E6BB002AFDAD /* main.m in Sources */,
+				88CDFE4C243F8F52005C1A29 /* ConfirmViewController.m in Sources */,
+				88CDFE51243F9ABD005C1A29 /* ProductListTableViewCell.m in Sources */,
 				7C67B5D72436E6B9002AFDAD /* SceneDelegate.m in Sources */,
 				7C67B5F02436E707002AFDAD /* LoginViewController.m in Sources */,
 			);

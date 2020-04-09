@@ -12,13 +12,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ProductIntroduceViewController : UIViewController
 
-@property (strong, nonatomic) NSString *pName;
-@property (strong, nonatomic) NSString *pContent;
+@property (strong, nonatomic) NSString *pNameStr;
+@property (strong, nonatomic) NSString *pContentStr;
+@property (strong, nonatomic) NSString *pImgStr;
+
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topContraint;
 
 @property (weak, nonatomic) IBOutlet UIImageView *pImg;
 @property (weak, nonatomic) IBOutlet UILabel *pNamelb;
 @property (weak, nonatomic) IBOutlet UILabel *pContentlb;
-@property (weak, nonatomic) IBOutlet UITextField *pTextField;
+@property (strong, nonatomic) IBOutlet UITextField *pTextField;
 @property (weak, nonatomic) IBOutlet UIButton *confirmBtn;
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;
 

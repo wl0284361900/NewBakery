@@ -7,8 +7,11 @@
 //
 
 #import "ProductIntroduceViewController.h"
-
-@interface ProductIntroduceViewController ()
+#import "ConfirmViewController.h"
+#import <SDWebImage/SDWebImage.h>
+@interface ProductIntroduceViewController()<UITextFieldDelegate, UIGestureRecognizerDelegate>{
+    UITapGestureRecognizer *clickBackground;
+}
 
 @end
 
@@ -28,16 +31,54 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self.pImg sd_setImageWithURL:[NSURL URLWithString:self.pImgStr]];
+    self.pNamelb.text = self.pNameStr;
+    self.pContentlb.text = self.pContentStr;
+    
+    //Button Setting
+    [self.backBtn addTarget:self action:@selector(clickBackToView) forControlEvents:UIControlEventTouchUpInside];
+    [self.confirmBtn addTarget:self action:@selector(clickPushConfirmView) forControlEvents:UIControlEventTouchUpInside];
+    
+    //UITextField
+    self.pTextField.delegate = self;
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide) name:UIKeyboardWillHideNotification object:nil];
+    
+    clickBackground = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(keyboardHide)];
+    clickBackground.delegate = self;
+    [self.view addGestureRecognizer:clickBackground];
+    
+//    clickBackground.cancelsTouchesInView
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Button Action
+- (void)clickBackToView{
+    [self.navigationController popViewControllerAnimated:YES];
 }
-*/
 
+- (void)clickPushConfirmView{
+    ConfirmViewController *confirm = [[ConfirmViewController alloc]initWithNibName:@"ConfirmViewController" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:confirm animated:YES];
+}
+
+#pragma mark - TextFieldDeleagte
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    [self keyboardHide];
+}
+
+#pragma mark - NSNotificationCenter
+- (void)keyboardShow{
+    self.view.superview.frame = CGRectMake(0, -250, kScreenWidth, kScreenHeight);
+}
+
+- (void)keyboardHide{
+    [self.pTextField resignFirstResponder];
+//    self.topContraint.constant = 0.1f;
+    self.view.superview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+}
 @end

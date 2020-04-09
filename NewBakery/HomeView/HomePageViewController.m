@@ -8,10 +8,11 @@
 
 #import "HomePageViewController.h"
 #import "ProductMenuCollectionViewCell.h"
+#import "ProductIntroduceViewController.h"
 
 #import <SDWebImage/SDWebImage.h>
 #import <FirebaseFirestore/FirebaseFirestore.h>
-//#import "PrefixHeader.pch"/
+
 
 typedef enum productType{
     Bread,
@@ -86,13 +87,6 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
             default:
                 break;
         }
-//        if([dic[@"type"]isEqualToNumber:@0]){
-//            [breadArr addObject:dic];
-//        }else if([dic[@"type"]isEqualToNumber:@1]){
-//            [SnackArr addObject:dic];
-//        }else if([dic[@"type"]isEqualToNumber:@2]){
-//            [ToastArr addObject:dic];
-//        }
     }
     //初始化是顯示所有商品（首頁）
     productArr = allProductArr;
@@ -252,6 +246,14 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 }
 
 #pragma mark - CollectionDelegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    ProductIntroduceViewController *introduce = [[ProductIntroduceViewController alloc]initWithNibName:@"ProductIntroduceViewController" bundle:[NSBundle mainBundle]];
+    introduce.pNameStr = productArr[indexPath.row][@"name"];
+    introduce.pContentStr = productArr[indexPath.row][@"content"];
+    introduce.pImgStr = productArr[indexPath.row][@"img"];
+    [self.navigationController pushViewController:introduce animated:YES];
+}
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     //依照Cell的Size決定該Row顯示幾個Cell
     //kCellMargins = 左右邊界各10
