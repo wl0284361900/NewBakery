@@ -10,7 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CompleteOrderViewController : UIViewController
+@interface CompleteOrderViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UITableView *mtableView;
+@property (weak, nonatomic) IBOutlet UIButton *backHomeBtn;
+
 
 @end
 
