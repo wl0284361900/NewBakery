@@ -1,8 +1,8 @@
 //
-//  ProductListTableViewCell.h
+//  CompleteOrderViewController.h
 //  NewBakery
 //
-//  Created by CHANCHUN-YI on 2020/4/10.
+//  Created by CHANCHUN-YI on 2020/4/12.
 //  Copyright © 2020 ES711-apple-2. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ProductListTableViewCell : UITableViewCell
+@interface CompleteOrderViewController : UIViewController
 
 @end
 

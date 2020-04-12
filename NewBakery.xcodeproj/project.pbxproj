@@ -24,6 +24,8 @@
 		7C93913C2438B25C00BA1005 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7C93913B2438B25C00BA1005 /* GoogleService-Info.plist */; };
 		88164042243B9A4300E24377 /* ProductIntroduceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88164040243B9A4300E24377 /* ProductIntroduceViewController.m */; };
 		88164043243B9A4300E24377 /* ProductIntroduceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88164041243B9A4300E24377 /* ProductIntroduceViewController.xib */; };
+		8858609C24435BA8001D9F85 /* CompleteOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8858609A24435BA8001D9F85 /* CompleteOrderViewController.m */; };
+		8858609D24435BA8001D9F85 /* CompleteOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8858609B24435BA8001D9F85 /* CompleteOrderViewController.xib */; };
 		88CDFE4C243F8F52005C1A29 /* ConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CDFE4A243F8F52005C1A29 /* ConfirmViewController.m */; };
 		88CDFE4D243F8F52005C1A29 /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88CDFE4B243F8F52005C1A29 /* ConfirmViewController.xib */; };
 		88CDFE51243F9ABD005C1A29 /* ProductListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CDFE4F243F9ABD005C1A29 /* ProductListTableViewCell.m */; };
@@ -59,6 +61,9 @@
 		8816403F243B9A4300E24377 /* ProductIntroduceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductIntroduceViewController.h; sourceTree = "<group>"; };
 		88164040243B9A4300E24377 /* ProductIntroduceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductIntroduceViewController.m; sourceTree = "<group>"; };
 		88164041243B9A4300E24377 /* ProductIntroduceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductIntroduceViewController.xib; sourceTree = "<group>"; };
+		8858609924435BA8001D9F85 /* CompleteOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompleteOrderViewController.h; sourceTree = "<group>"; };
+		8858609A24435BA8001D9F85 /* CompleteOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompleteOrderViewController.m; sourceTree = "<group>"; };
+		8858609B24435BA8001D9F85 /* CompleteOrderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteOrderViewController.xib; sourceTree = "<group>"; };
 		88CDFE49243F8F52005C1A29 /* ConfirmViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfirmViewController.h; sourceTree = "<group>"; };
 		88CDFE4A243F8F52005C1A29 /* ConfirmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfirmViewController.m; sourceTree = "<group>"; };
 		88CDFE4B243F8F52005C1A29 /* ConfirmViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmViewController.xib; sourceTree = "<group>"; };
@@ -112,7 +117,8 @@
 				7C67B5EB2436E6E7002AFDAD /* Login */,
 				7C67B5EC2436E6F4002AFDAD /* HomeView */,
 				8816403E243B9A1A00E24377 /* ProductIntroduce */,
-				88CDFE48243F8F2D005C1A29 /* ConfirmViewController */,
+				88CDFE48243F8F2D005C1A29 /* ConfirmView */,
+				8858609824435B65001D9F85 /* CompleteView */,
 				7C67B5D22436E6B9002AFDAD /* AppDelegate.h */,
 				7C67B5D32436E6B9002AFDAD /* AppDelegate.m */,
 				7C67B5D52436E6B9002AFDAD /* SceneDelegate.h */,
@@ -163,7 +169,17 @@
 			path = ProductIntroduce;
 			sourceTree = "<group>";
 		};
-		88CDFE48243F8F2D005C1A29 /* ConfirmViewController */ = {
+		8858609824435B65001D9F85 /* CompleteView */ = {
+			isa = PBXGroup;
+			children = (
+				8858609924435BA8001D9F85 /* CompleteOrderViewController.h */,
+				8858609A24435BA8001D9F85 /* CompleteOrderViewController.m */,
+				8858609B24435BA8001D9F85 /* CompleteOrderViewController.xib */,
+			);
+			path = CompleteView;
+			sourceTree = "<group>";
+		};
+		88CDFE48243F8F2D005C1A29 /* ConfirmView */ = {
 			isa = PBXGroup;
 			children = (
 				88CDFE49243F8F52005C1A29 /* ConfirmViewController.h */,
@@ -173,7 +189,7 @@
 				88CDFE4F243F9ABD005C1A29 /* ProductListTableViewCell.m */,
 				88CDFE50243F9ABD005C1A29 /* ProductListTableViewCell.xib */,
 			);
-			path = ConfirmViewController;
+			path = ConfirmView;
 			sourceTree = "<group>";
 		};
 		9D0C1F9002DC9630FF60B95D /* Pods */ = {
@@ -254,6 +270,7 @@
 				7C67B5DD2436E6B9002AFDAD /* Main.storyboard in Resources */,
 				7C93913C2438B25C00BA1005 /* GoogleService-Info.plist in Resources */,
 				88CDFE4D243F8F52005C1A29 /* ConfirmViewController.xib in Resources */,
+				8858609D24435BA8001D9F85 /* CompleteOrderViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,6 +324,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				88164042243B9A4300E24377 /* ProductIntroduceViewController.m in Sources */,
+				8858609C24435BA8001D9F85 /* CompleteOrderViewController.m in Sources */,
 				7C93913924388E0500BA1005 /* ProductMenuCollectionViewCell.m in Sources */,
 				7C67B5DA2436E6B9002AFDAD /* ViewController.m in Sources */,
 				7C67B5D42436E6B9002AFDAD /* AppDelegate.m in Sources */,

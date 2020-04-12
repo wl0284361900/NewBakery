@@ -59,6 +59,9 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //暫用
+    [self.sideMenuBtn addTarget:self action:@selector(ClickTmpBack) forControlEvents:UIControlEventTouchUpInside];
+    
     self.navigationController.navigationBar.hidden = YES;
     
     productMenuArr = [[NSArray alloc]initWithObjects:@"首頁",@"熱門商品",@"吐司類",@"蛋糕類",@"麵包類", nil];
@@ -91,6 +94,17 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     //初始化是顯示所有商品（首頁）
     productArr = allProductArr;
     
+        
+
+    //collectionView creat
+    self.mcollectionView.delegate = self;
+    self.mcollectionView.dataSource = self;
+    self.mcollectionView.pagingEnabled = NO;
+    [self.mcollectionView registerNib:[UINib nibWithNibName:@"ProductMenuCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"cell"];
+
+}
+
+-(void)viewWillAppear:(BOOL)animated{
     //button into scrollView(Frame)
     //創建button
     btnTotalWidth = 0;
@@ -114,28 +128,24 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     headSpacing = 30;
     //設定scrollView content size
     _mscrollView.contentSize = CGSizeMake((spacing * (productMenuArr.count - 1))+ btnTotalWidth + (headSpacing * 2), 0);
-    
-
-    //collectionView creat
-    self.mcollectionView.delegate = self;
-    self.mcollectionView.dataSource = self;
-    self.mcollectionView.pagingEnabled = NO;
-    [self.mcollectionView registerNib:[UINib nibWithNibName:@"ProductMenuCollectionViewCell" bundle:[NSBundle mainBundle]] forCellWithReuseIdentifier:@"cell"];
 
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     //離開此頁面 初始化
     for(UIButton *btn in btnMutArr){
-        if(btn.tag == 0){
-            [btn.titleLabel setFont:[UIFont fontWithName:@"Helvetica-Bold" size:20.0f]];
-        }
-        [btn.titleLabel setFont:[UIFont fontWithName:@"System" size:17.0f]];
+        [btn removeFromSuperview];
     }
-    
-    //頁面載入也要
-    
+
+    //頁面載入也要ea
+
 }
+
+//暫時用
+- (void)ClickTmpBack{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 //button創建的function
 - (UIButton *)creatButton:(NSString *)title{

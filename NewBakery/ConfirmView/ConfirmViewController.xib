@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConfirmViewController">
             <connections>
+                <outlet property="backBtn" destination="v7x-OH-YkJ" id="DBj-ob-eQm"/>
                 <outlet property="confirmBtn" destination="UnV-9E-ILg" id="Idc-xA-muM"/>
                 <outlet property="deleteBtn" destination="To1-HN-gRO" id="tKd-0I-yMm"/>
                 <outlet property="mtableView" destination="lLS-gJ-bmy" id="xrW-ws-T1a"/>
@@ -24,37 +25,47 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lLS-gJ-bmy">
-                    <rect key="frame" x="67.5" y="195" width="279" height="567"/>
+                    <rect key="frame" x="33" y="195" width="348" height="567"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="To1-HN-gRO">
-                    <rect key="frame" x="103.5" y="122" width="41" height="36"/>
+                    <rect key="frame" x="123.5" y="122" width="41" height="36"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="刪除">
                         <color key="titleColor" red="0.47601276640000001" green="0.42593625190000001" blue="0.4107057154" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UnV-9E-ILg">
-                    <rect key="frame" x="269.5" y="122" width="41" height="36"/>
+                    <rect key="frame" x="249.5" y="122" width="41" height="36"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="確認">
                         <color key="titleColor" red="0.47601276640000001" green="0.42593625190000001" blue="0.4107057154" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v7x-OH-YkJ">
+                    <rect key="frame" x="33" y="77" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="AQA-ht-W6h"/>
+                        <constraint firstAttribute="width" constant="30" id="VLh-c0-qnX"/>
+                    </constraints>
+                    <state key="normal" image="backImg"/>
+                </button>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="To1-HN-gRO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="3/5" id="0J8-Va-yuJ"/>
+                <constraint firstItem="To1-HN-gRO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="3/5" constant="20" id="0J8-Va-yuJ"/>
                 <constraint firstItem="lLS-gJ-bmy" firstAttribute="top" secondItem="UnV-9E-ILg" secondAttribute="bottom" constant="37" id="0gP-ZJ-qYD"/>
-                <constraint firstItem="lLS-gJ-bmy" firstAttribute="width" secondItem="0Hd-Gt-xaO" secondAttribute="width" multiplier="0.673913" id="H7v-fh-UUh"/>
+                <constraint firstItem="v7x-OH-YkJ" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="33" id="FfP-pV-7L0"/>
                 <constraint firstItem="UnV-9E-ILg" firstAttribute="centerY" secondItem="To1-HN-gRO" secondAttribute="centerY" id="LAm-vH-jzN"/>
                 <constraint firstItem="To1-HN-gRO" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="78" id="W62-2l-jub"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="lLS-gJ-bmy" secondAttribute="bottom" constant="100" id="WcE-yg-UFx"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="0Hd-Gt-xaO" secondAttribute="trailing" constant="0.10000000000000001" id="Y3i-HE-rWE"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="0Hd-Gt-xaO" secondAttribute="bottom" constant="0.10000000000000001" id="Zav-QW-VLz"/>
+                <constraint firstItem="v7x-OH-YkJ" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="33" id="av6-Xq-ZZe"/>
+                <constraint firstItem="lLS-gJ-bmy" firstAttribute="width" secondItem="0Hd-Gt-xaO" secondAttribute="width" multiplier="0.84058" id="crR-LI-WZM"/>
                 <constraint firstItem="lLS-gJ-bmy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="g4W-Ct-DUb"/>
                 <constraint firstItem="0Hd-Gt-xaO" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="0.10000000000000001" id="nAZ-Ns-eH2"/>
-                <constraint firstItem="UnV-9E-ILg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="7/5" id="oRs-Ea-c9Y"/>
+                <constraint firstItem="UnV-9E-ILg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="7/5" constant="-20" id="oRs-Ea-c9Y"/>
                 <constraint firstItem="0Hd-Gt-xaO" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="0.10000000000000001" id="u3i-6N-5ZX"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
@@ -63,5 +74,6 @@
     </objects>
     <resources>
         <image name="ConfirmViewBG" width="690" height="1227"/>
+        <image name="backImg" width="58" height="56"/>
     </resources>
 </document>
