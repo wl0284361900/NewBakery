@@ -12,6 +12,7 @@
                 <outlet property="mcollectionView" destination="cly-T1-1jY" id="dSA-tH-l8g"/>
                 <outlet property="mscrollView" destination="Mxm-HO-VXS" id="4OD-3J-Ie5"/>
                 <outlet property="sideMenuBtn" destination="qfy-8a-PR8" id="VhG-QT-cgx"/>
+                <outlet property="soundBtn" destination="dKi-H4-P5W" id="nPG-Mi-LNf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

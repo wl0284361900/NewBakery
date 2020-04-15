@@ -40,6 +40,8 @@ typedef enum productType{
     NSInteger btnTotalWidth;
     NSInteger btnTag;
     
+    //列表陣列 暫放這
+    NSMutableArray *orderListArr;
 }
 
 @property (strong, nonatomic) FIRFirestore *db;
@@ -59,8 +61,13 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.db = [FIRFirestore firestore];
     //暫用
     [self.sideMenuBtn addTarget:self action:@selector(ClickTmpBack) forControlEvents:UIControlEventTouchUpInside];
+    //佔用：訂單列表顯示
+    orderListArr = [[NSMutableArray alloc]initWithCapacity:0];
+    [self.soundBtn addTarget:self action:@selector(readOrderSearchFirebase) forControlEvents:UIControlEventTouchUpInside];
+    
     
     self.navigationController.navigationBar.hidden = YES;
     
@@ -204,22 +211,21 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     
 }
 #pragma mark - Firebase
-//- (void)readFirebase{
-//    //讀取 //撈該集合所有文件
-//    [[self.db collectionWithPath:@"ProductInfo"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
-//        if(snapshot.count == 0){
-//            return;
-//        }
-//        for(FIRDocumentSnapshot *docSnapshot in snapshot.documents){
-//            [self->_productArr addObject:docSnapshot.data];
-//        }
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            NSLog(@"self.productArr:%@", self->_productArr);
-//            [self.mcollectionView reloadData];
-//        });
-//    }];
-//}
+- (void)readOrderSearchFirebase{
+    //讀取
+    //用成Singleton
+//    NSDictionary *nameDic = @{@"userName":@"ChunYi-Chan"};
 
+    [[[self.db collectionWithPath:@"OrderSearch"] queryOrderedByField:@"OLCount"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
+        if(snapshot.count == 0){
+            return;
+        }
+        for(FIRDocumentSnapshot *docSnapshot in snapshot.documents){
+            [self->orderListArr addObject:docSnapshot.data];
+        }
+        NSLog(@"列出訂單：%@", self->orderListArr);
+    }];
+}
 
 
 #pragma mark - CollectionViewDataSource

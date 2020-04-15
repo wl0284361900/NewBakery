@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UITableView *mtableView;
 @property (weak, nonatomic) IBOutlet UIButton *backHomeBtn;
 
+@property (weak, nonatomic) NSMutableArray *OrderSearchArr;
 
 @end
 

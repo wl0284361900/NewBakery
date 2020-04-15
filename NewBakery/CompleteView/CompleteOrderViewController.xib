@@ -30,7 +30,7 @@
                     </constraints>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0FJ-Io-Z3d">
-                    <rect key="frame" x="41" y="287" width="332" height="409"/>
+                    <rect key="frame" x="33" y="287" width="348" height="409"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="keY-JV-Mv4">
@@ -47,14 +47,14 @@
                 <constraint firstItem="iq6-gd-fTz" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="60" id="1Hb-hm-hwy"/>
                 <constraint firstItem="keY-JV-Mv4" firstAttribute="top" secondItem="0FJ-Io-Z3d" secondAttribute="bottom" constant="27" id="1me-A3-K1j"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="ilV-m9-kqt" secondAttribute="bottom" constant="0.10000000000000001" id="CYr-tZ-Ho5"/>
-                <constraint firstItem="0FJ-Io-Z3d" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="41" id="Hq4-eV-pX8"/>
+                <constraint firstItem="0FJ-Io-Z3d" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="33" id="Hq4-eV-pX8"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="keY-JV-Mv4" secondAttribute="bottom" constant="49" id="KvT-qx-w4q"/>
                 <constraint firstItem="iq6-gd-fTz" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="L2w-8T-TuX"/>
                 <constraint firstItem="0FJ-Io-Z3d" firstAttribute="top" secondItem="iq6-gd-fTz" secondAttribute="bottom" constant="40.5" id="QNs-gW-T4r"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="ilV-m9-kqt" secondAttribute="trailing" constant="0.10000000000000001" id="QoQ-Cb-mEx"/>
                 <constraint firstItem="ilV-m9-kqt" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="0.10000000000000001" id="bCY-VG-3da"/>
                 <constraint firstItem="ilV-m9-kqt" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" constant="0.10000000000000001" id="kCK-yK-DUy"/>
-                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="0FJ-Io-Z3d" secondAttribute="trailing" constant="41" id="wAj-bS-B46"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="0FJ-Io-Z3d" secondAttribute="trailing" constant="33" id="wAj-bS-B46"/>
                 <constraint firstItem="keY-JV-Mv4" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ypJ-Uw-QWA"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>

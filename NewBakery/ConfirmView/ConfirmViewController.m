@@ -39,6 +39,7 @@
 
 - (void) clickConfirmProduct{
     CompleteOrderViewController *complete = [[CompleteOrderViewController alloc]initWithNibName:@"CompleteOrderViewController" bundle:nil];
+    complete.OrderSearchArr = OrderArr;
     [self.navigationController pushViewController:complete animated:YES];
 }
 
@@ -86,6 +87,7 @@
             return;
         }
         for(FIRDocumentSnapshot *docSnapshot in snapshot.documents){
+//            NSLog(@"%@",docSnapshot.data);
             [self->OrderArr addObject:docSnapshot.data];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
