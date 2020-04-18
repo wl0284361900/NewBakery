@@ -11,10 +11,7 @@
 #import "HomePageViewController.h"
 
 #import <FirebaseFirestore/FirebaseFirestore.h>
-@interface CompleteOrderViewController (){
-
-}
-@property (strong, nonatomic) FIRFirestore *db;
+@interface CompleteOrderViewController ()@property (strong, nonatomic) FIRFirestore *db;
 @end
 
 
@@ -48,14 +45,26 @@
     
     NSDictionary *dic = @{@"name":@"ChunYi-Chan"};
 //    NSDictionary *pdic = @{@"productName":self.pNameStr};
-    NSNumber *lCount = @1;//第幾筆訂單   要儲存在內存：每次讀取舊的一筆資料，每次加一
+    
+    //從內存讀取 +1 之後 存入
+    NSNumber *lCount;//第幾筆訂單   要儲存在內存：每次讀取舊的一筆資料，每次加一
+    NSUserDefaults *readDefaults = [NSUserDefaults standardUserDefaults];
+    lCount = [NSNumber numberWithInteger:[readDefaults integerForKey:@"OrderListAmount"]];
+    if([lCount intValue] == 0){
+        lCount = [NSNumber numberWithInteger:1];
+    }
+    NSLog(@"lCount:%d", [lCount intValue]);
+    
+   
+//
     NSDictionary *parameterdic = @{
         @"pList":self.OrderSearchArr,
         @"OLTime": currentDateString,   //OL = orderList 訂單列表
         @"OLCount":lCount
     };
     
-    [[[self.db collectionWithPath:@"OrderSearch"]documentWithPath:dic[@"name"]]setData:parameterdic completion:^(NSError * _Nullable error) {
+    
+    [[[[[self.db collectionWithPath:@"OrderSearch"]documentWithPath:dic[@"name"]]collectionWithPath:@"OrderList"] documentWithPath:[NSString stringWithFormat:@"%d", [lCount intValue]]]setData:parameterdic completion:^(NSError * _Nullable error) {
         if(error != nil){
             //                    NSLog(@"Error writing document: %@", error);
         }else{
@@ -63,9 +72,13 @@
             for(int i =0 ; i < self.OrderSearchArr.count; i++){
                 [[[[[self.db collectionWithPath:@"Order"]documentWithPath:dic[@"name"]]collectionWithPath:@"Product"] documentWithPath:self.OrderSearchArr[i][@"pName"]]deleteDocument];
             }
+         
+            //在內存 將訂單列表+1
+            NSUserDefaults *writeDefaults = [NSUserDefaults standardUserDefaults];
+            [writeDefaults setInteger:([lCount integerValue]+1) forKey:@"OrderListAmount"]; //訂單列表
+            [writeDefaults synchronize];
             
-            
-            //跳至首頁 且要發送「推播」 推波資料為[OrderSearch][userName]
+            #warning 跳至首頁 且要發送「推播」 推波資料為[OrderSearch][userName]
             HomePageViewController *home = [[HomePageViewController alloc]init];
             UIViewController *target = nil;
             

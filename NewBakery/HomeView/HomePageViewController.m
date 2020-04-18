@@ -214,9 +214,9 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 - (void)readOrderSearchFirebase{
     //讀取
     //用成Singleton
-//    NSDictionary *nameDic = @{@"userName":@"ChunYi-Chan"};
+    NSDictionary *nameDic = @{@"userName":@"ChunYi-Chan"};
 
-    [[[self.db collectionWithPath:@"OrderSearch"] queryOrderedByField:@"OLCount"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
+    [[[[[self.db collectionWithPath:@"OrderSearch"] documentWithPath:nameDic[@"userName"]]collectionWithPath:@"OrderList"] queryOrderedByField:@"OLCount"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
         if(snapshot.count == 0){
             return;
         }
