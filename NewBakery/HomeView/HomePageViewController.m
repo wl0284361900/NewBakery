@@ -12,7 +12,7 @@
 
 #import <SDWebImage/SDWebImage.h>
 #import <FirebaseFirestore/FirebaseFirestore.h>
-
+#import <FirebaseAuth/FirebaseAuth.h>
 
 typedef enum productType{
     Bread,
@@ -45,7 +45,7 @@ typedef enum productType{
 }
 
 @property (strong, nonatomic) FIRFirestore *db;
-
+@property (strong, nonatomic) FIRAuth *handle;
 @property (weak, nonatomic) IBOutlet UIScrollView *mscrollView;
 @property (weak, nonatomic) IBOutlet UICollectionView *mcollectionView;
 
@@ -112,7 +112,18 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    NSLog(@"123");
+    //新增Auth監聽
+    self.handle = [[FIRAuth auth]addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
+        if(user){
+            NSLog(@"登入成功");
+        }else{
+            NSLog(@"登出成功");
+        }
+    }];
+    
+    
+    
+    
     allProductArr = [NSMutableArray arrayWithArray:self.tr_productArr];
     
     //button into scrollView(Frame)
@@ -153,6 +164,8 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     //回滾到初始化
     [self.mcollectionView setContentOffset:CGPointMake(0, 0) animated:NO];
     [self.mscrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+    
+    [[FIRAuth auth] removeAuthStateDidChangeListener:self.handle];
 }
 
 //暫時用
