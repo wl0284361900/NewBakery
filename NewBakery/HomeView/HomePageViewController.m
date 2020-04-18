@@ -112,6 +112,9 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    NSLog(@"123");
+    allProductArr = [NSMutableArray arrayWithArray:self.tr_productArr];
+    
     //button into scrollView(Frame)
     //創建button
     btnTotalWidth = 0;
@@ -136,6 +139,9 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     //設定scrollView content size
     _mscrollView.contentSize = CGSizeMake((spacing * (productMenuArr.count - 1))+ btnTotalWidth + (headSpacing * 2), 0);
 
+    //初始化是顯示所有商品（首頁）
+    productArr = allProductArr;
+    [self.mcollectionView reloadData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -143,9 +149,10 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     for(UIButton *btn in btnMutArr){
         [btn removeFromSuperview];
     }
-
-    //頁面載入也要ea
-
+    
+    //回滾到初始化
+    [self.mcollectionView setContentOffset:CGPointMake(0, 0) animated:NO];
+    [self.mscrollView setContentOffset:CGPointMake(0, 0) animated:NO];
 }
 
 //暫時用
