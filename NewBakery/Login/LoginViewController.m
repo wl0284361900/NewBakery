@@ -32,13 +32,6 @@
     self.FBLoginBtn.delegate = self;
     self.FBLoginBtn.permissions = @[@"public_profile",@"email"];
     
-    //如果有取得token就直接登入
-    if ([FBSDKAccessToken currentAccessToken]) {
-        // User is logged in, do work such as go to next view controller.
-        HomePageViewController *home = [[HomePageViewController alloc]initWithNibName:@"HomePageViewController" bundle:[NSBundle mainBundle]];
-        home.tr_productArr = self.productArr;
-        [self.navigationController pushViewController:home animated:YES];
-    }
     
     self.productArr = [[NSMutableArray alloc]initWithCapacity:0];
     //資料庫初始化
@@ -46,6 +39,17 @@
     [self readFirebase];
     // child 是增加欄位
     //setvalue 是寫入欄位中的值
+    
+    //如果有取得token就直接登入
+    if ([FBSDKAccessToken currentAccessToken]) {
+        
+        //要用一個小菊花等待
+        HomePageViewController *home = [[HomePageViewController alloc]initWithNibName:@"HomePageViewController" bundle:[NSBundle mainBundle]];
+        home.tr_productArr = self.productArr;
+        [self.navigationController pushViewController:home animated:YES];
+    }
+    
+    
 }
 
 
@@ -65,17 +69,6 @@
                 }];
             }
         }
-    }
-}
-
-- (void)loginButtonDidLogOut:(nonnull FBSDKLoginButton *)loginButton {
-    NSError *signOutError;
-    @try {
-        [[FIRAuth auth]signOut:&signOutError];
-    } @catch (NSException *exception) {
-        NSLog(@"%@", signOutError.localizedDescription);
-    } @finally {
-        
     }
 }
 

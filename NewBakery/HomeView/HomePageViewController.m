@@ -13,7 +13,7 @@
 #import <SDWebImage/SDWebImage.h>
 #import <FirebaseFirestore/FirebaseFirestore.h>
 #import <FirebaseAuth/FirebaseAuth.h>
-
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 typedef enum productType{
     Bread,
@@ -23,7 +23,7 @@ typedef enum productType{
 
 @interface HomePageViewController ()<UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>{
     
-//    productType type;
+    FBSDKLoginManager *fbManager;
     
     NSArray *productMenuArr;    //scrollView上的種類
     NSMutableArray *productArr; //所有商品
@@ -61,6 +61,9 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //登出用
+    fbManager = [[FBSDKLoginManager alloc]init];
     
     self.db = [FIRFirestore firestore];
     //暫用
@@ -173,14 +176,8 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 
 //暫時用
 - (void)ClickTmpBack{
-    NSError *signOutError;
-    @try {
-        [[FIRAuth auth]signOut:&signOutError];
-    } @catch (NSException *exception) {
-        NSLog(@"%@",signOutError);
-    } @finally {
-        
-    }
+    //清除accessToken
+    [fbManager logOut];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

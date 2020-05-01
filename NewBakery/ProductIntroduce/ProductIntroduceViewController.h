@@ -21,7 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet UIImageView *pImg;
 @property (weak, nonatomic) IBOutlet UILabel *pNamelb;
-@property (weak, nonatomic) IBOutlet UILabel *pContentlb;
+//@property (weak, nonatomic) IBOutlet UILabel *pContentlb;
+@property (weak, nonatomic) IBOutlet UITextView *pContentTV;
+
 @property (strong, nonatomic) IBOutlet UITextField *pTextField;
 @property (weak, nonatomic) IBOutlet UIButton *confirmBtn;
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;

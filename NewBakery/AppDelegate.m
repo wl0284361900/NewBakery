@@ -34,10 +34,7 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     // Add any custom logic here.
     
-    LoginViewController *home = [[LoginViewController alloc]initWithNibName:@"LoginViewController" bundle:nil];
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:home];
-    self.window.rootViewController = nav;
-    [self.window makeKeyAndVisible];
+   
     
     return YES;
 }

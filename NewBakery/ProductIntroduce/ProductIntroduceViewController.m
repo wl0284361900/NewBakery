@@ -36,7 +36,7 @@
     // Do any additional setup after loading the view from its nib.
     [self.pImg sd_setImageWithURL:[NSURL URLWithString:self.pImgStr]];
     self.pNamelb.text = self.pNameStr;
-    self.pContentlb.text = self.pContentStr;
+    self.pContentTV.text = self.pContentStr;
     
     //Button Setting
     self.backBtn.enabled = YES;
