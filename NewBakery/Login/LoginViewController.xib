@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
             <connections>
-                <outlet property="FBLoginBtn" destination="NhS-qa-YV9" id="wxX-Z9-Jds"/>
+                <outlet property="FBLoginBtn" destination="Evf-pi-PB2" id="AtB-cl-pRp"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,22 +18,32 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NhS-qa-YV9" customClass="FBSDKLoginButton">
-                    <rect key="frame" x="87" y="428" width="240" height="40"/>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="loginBG" translatesAutoresizingMaskIntoConstraints="NO" id="jfd-uq-AGZ">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Evf-pi-PB2" customClass="FBSDKLoginButton">
+                    <rect key="frame" x="103.5" y="512.5" width="207" height="50"/>
+                    <color key="backgroundColor" red="0.25942373279999997" green="0.40521004799999999" blue="0.70044261220000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="yCO-Pa-8M4"/>
+                        <constraint firstAttribute="height" constant="50" id="biR-bI-GOb"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="NhS-qa-YV9" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="8n2-8a-qNA"/>
-                <constraint firstItem="NhS-qa-YV9" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="LNX-iV-eJt"/>
-                <constraint firstItem="NhS-qa-YV9" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.57971" id="bHE-G4-9mV"/>
+                <constraint firstItem="jfd-uq-AGZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1j2-OT-Eof"/>
+                <constraint firstItem="jfd-uq-AGZ" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="24O-O5-074"/>
+                <constraint firstItem="Evf-pi-PB2" firstAttribute="width" secondItem="jfd-uq-AGZ" secondAttribute="width" multiplier="0.5" id="QdT-aI-gEy"/>
+                <constraint firstItem="Evf-pi-PB2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="UCX-gG-etd"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jfd-uq-AGZ" secondAttribute="trailing" id="faO-SI-W1o"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="jfd-uq-AGZ" secondAttribute="bottom" id="n5q-Z4-OVc"/>
+                <constraint firstItem="Evf-pi-PB2" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="6/5" id="psx-5q-mNv"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="139" y="92"/>
+            <point key="canvasLocation" x="137.68115942028987" y="91.741071428571431"/>
         </view>
     </objects>
+    <resources>
+        <image name="loginBG" width="690" height="1227"/>
+    </resources>
 </document>

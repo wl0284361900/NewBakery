@@ -27,11 +27,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.navigationBar.hidden = YES;
     //實作FB登入
     //Line登入
     self.FBLoginBtn.delegate = self;
     self.FBLoginBtn.permissions = @[@"public_profile",@"email"];
-    
     
     self.productArr = [[NSMutableArray alloc]initWithCapacity:0];
     //資料庫初始化
@@ -43,10 +43,11 @@
     //如果有取得token就直接登入
     if ([FBSDKAccessToken currentAccessToken]) {
         
-        //要用一個小菊花等待
-        HomePageViewController *home = [[HomePageViewController alloc]initWithNibName:@"HomePageViewController" bundle:[NSBundle mainBundle]];
-        home.tr_productArr = self.productArr;
-        [self.navigationController pushViewController:home animated:YES];
+        //要用一個小菊花等待 資料庫撈完資料
+//        HomePageViewController *home = [[HomePageViewController alloc]initWithNibName:@"HomePageViewController" bundle:[NSBundle mainBundle]];
+//        home.tr_productArr = self.productArr;
+//        [self.navigationController pushViewController:home animated:YES];
+        [self readFirebase];
     }
     
     
@@ -60,9 +61,7 @@
                 [[FIRAuth auth] signInWithCredential:credential completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
                     if(error == nil){
                         //進入下一頁;
-                        HomePageViewController *home = [[HomePageViewController alloc]initWithNibName:@"HomePageViewController" bundle:nil];
-                        home.tr_productArr = self.productArr;
-                        [self.navigationController pushViewController:home animated:YES];
+                        [self readFirebase];
                     }else{
                         NSLog(@"%@", error.localizedDescription);
                     }
@@ -71,6 +70,11 @@
         }
     }
 }
+
+- (void)loginButtonDidLogOut:(nonnull FBSDKLoginButton *)loginButton {
+    NSLog(@"lout out");
+}
+
 
 - (void)readFirebase{
     //讀取 //撈該集合所有文件
@@ -82,7 +86,11 @@
             [self->_productArr addObject:docSnapshot.data];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"self.productArr:%@", self->_productArr);
+//            NSLog(@"self.productArr:%@", self->_productArr);
+            //跳下一頁
+            HomePageViewController *home = [[HomePageViewController alloc]initWithNibName:@"HomePageViewController" bundle:nil];
+            home.tr_productArr = self.productArr;
+            [self.navigationController pushViewController:home animated:YES];
         });
     }];
 }
