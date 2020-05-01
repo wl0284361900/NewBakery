@@ -10,6 +10,7 @@
 #import "ProductMenuCollectionViewCell.h"
 #import "ProductIntroduceViewController.h"
 
+#import "Singleton.h"
 #import <SDWebImage/SDWebImage.h>
 #import <FirebaseFirestore/FirebaseFirestore.h>
 #import <FirebaseAuth/FirebaseAuth.h>
@@ -62,13 +63,29 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //新增Auth監聽
+    self.handle = [[FIRAuth auth]addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
+        if(user!=nil){
+            NSLog(@"登入成功%@",user.uid);
+            [Singleton sharedInstance].userId = user.uid;
+        }else{
+            NSLog(@"登出");
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
+
+    
+    
     //登出用
     fbManager = [[FBSDKLoginManager alloc]init];
     
     self.db = [FIRFirestore firestore];
+    
+    
     //暫用
     [self.sideMenuBtn addTarget:self action:@selector(ClickTmpBack) forControlEvents:UIControlEventTouchUpInside];
-    //佔用：訂單列表顯示
+    
+    //暫用：訂單列表顯示
     orderListArr = [[NSMutableArray alloc]initWithCapacity:0];
     [self.soundBtn addTarget:self action:@selector(readOrderSearchFirebase) forControlEvents:UIControlEventTouchUpInside];
     
@@ -116,19 +133,7 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
-    //新增Auth監聽
-    self.handle = [[FIRAuth auth]addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
-        if(user!=nil){
-            NSLog(@"登入成功%@",user.uid);
-        }else{
-            NSLog(@"登出");
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }];
-    
-    
-    
+  
     allProductArr = [NSMutableArray arrayWithArray:self.tr_productArr];
     
     //button into scrollView(Frame)
@@ -175,13 +180,14 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 }
 
 //暫時用
+#pragma mark - 左上角按鈕
 - (void)ClickTmpBack{
     //清除accessToken
     [fbManager logOut];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
+#pragma mark - ScrollView 上的 button
 //button創建的function
 - (UIButton *)creatButton:(NSString *)title{
     UIButton *btn = [[UIButton alloc]init];
@@ -242,7 +248,7 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 - (void)readOrderSearchFirebase{
     //讀取
     //用成Singleton
-    NSDictionary *nameDic = @{@"userName":@"ChunYi-Chan"};
+    NSDictionary *nameDic = @{@"userName":[Singleton sharedInstance].userId};
 
     [[[[[self.db collectionWithPath:@"OrderSearch"] documentWithPath:nameDic[@"userName"]]collectionWithPath:@"OrderList"] queryOrderedByField:@"OLCount"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
         if(snapshot.count == 0){

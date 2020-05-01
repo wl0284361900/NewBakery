@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 #import "HomePageViewController.h"
+#import "Singleton.h"
+
 
 #import <FirebaseFirestore/FirebaseFirestore.h>
 #import <FirebaseAuth/FirebaseAuth.h>
@@ -16,6 +18,7 @@
 @interface LoginViewController ()<FBSDKLoginButtonDelegate>{
     FBSDKAccessToken *accessToken;
     FIRAuthCredential *credential;
+    UIActivityIndicatorView *indicator;
 }
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *FBLoginBtn;
 @property (strong, nonatomic) FIRFirestore *db;
@@ -27,6 +30,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //小菊花
+    indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+    indicator.center = CGPointMake(kScreenWidth*0.5, kScreenHeight*0.5);
+    indicator.hidesWhenStopped = YES;
+    indicator.color = [UIColor blackColor];
+    [self.view addSubview:indicator];
+    
+    
     self.navigationController.navigationBar.hidden = YES;
     //實作FB登入
     //Line登入
@@ -36,17 +47,11 @@
     self.productArr = [[NSMutableArray alloc]initWithCapacity:0];
     //資料庫初始化
     self.db = [FIRFirestore firestore];
-    [self readFirebase];
-    // child 是增加欄位
-    //setvalue 是寫入欄位中的值
     
     //如果有取得token就直接登入
     if ([FBSDKAccessToken currentAccessToken]) {
-        
+        [indicator startAnimating];
         //要用一個小菊花等待 資料庫撈完資料
-//        HomePageViewController *home = [[HomePageViewController alloc]initWithNibName:@"HomePageViewController" bundle:[NSBundle mainBundle]];
-//        home.tr_productArr = self.productArr;
-//        [self.navigationController pushViewController:home animated:YES];
         [self readFirebase];
     }
     
@@ -61,6 +66,7 @@
                 [[FIRAuth auth] signInWithCredential:credential completion:^(FIRAuthDataResult * _Nullable authResult, NSError * _Nullable error) {
                     if(error == nil){
                         //進入下一頁;
+                        [self->indicator startAnimating];
                         [self readFirebase];
                     }else{
                         NSLog(@"%@", error.localizedDescription);
@@ -86,7 +92,7 @@
             [self->_productArr addObject:docSnapshot.data];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
-//            NSLog(@"self.productArr:%@", self->_productArr);
+            [self->indicator stopAnimating];
             //跳下一頁
             HomePageViewController *home = [[HomePageViewController alloc]initWithNibName:@"HomePageViewController" bundle:nil];
             home.tr_productArr = self.productArr;

@@ -11,6 +11,7 @@
 #import "HomePageViewController.h"
 #import "CompleteOrderViewController.h"
 
+#import "Singleton.h"
 #import <FirebaseFirestore/FirebaseFirestore.h>
 @interface ConfirmViewController (){
     NSMutableArray *OrderArr;
@@ -80,7 +81,7 @@
 - (void)readOrderFirebase{
     //讀取
     //用成Singleton
-    NSDictionary *nameDic = @{@"userName":@"ChunYi-Chan"};
+    NSDictionary *nameDic = @{@"userName":[Singleton sharedInstance].userId};
     
     [[[[[self.db collectionWithPath:@"Order"]documentWithPath:nameDic[@"userName"]]collectionWithPath:@"Product"] queryOrderedByField:@"pTime"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
         if(snapshot.count == 0){

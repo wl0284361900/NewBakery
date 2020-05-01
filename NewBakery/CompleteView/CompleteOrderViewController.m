@@ -10,6 +10,7 @@
 #import "ProductListTableViewCell.h"
 #import "HomePageViewController.h"
 
+#import "Singleton.h"
 #import <FirebaseFirestore/FirebaseFirestore.h>
 @interface CompleteOrderViewController ()@property (strong, nonatomic) FIRFirestore *db;
 @end
@@ -43,7 +44,7 @@
     NSDate *now = [[NSDate alloc]init];
     NSString *currentDateString = [formatter stringFromDate:now];
     
-    NSDictionary *dic = @{@"name":@"ChunYi-Chan"};
+    NSDictionary *dic = @{@"name":[Singleton sharedInstance].userId};
 //    NSDictionary *pdic = @{@"productName":self.pNameStr};
     
     //從內存讀取 +1 之後 存入
@@ -73,7 +74,8 @@
                 [[[[[self.db collectionWithPath:@"Order"]documentWithPath:dic[@"name"]]collectionWithPath:@"Product"] documentWithPath:self.OrderSearchArr[i][@"pName"]]deleteDocument];
             }
          
-            //在內存 將訂單列表+1
+            //應該是要讀資料庫裡面的資料有幾筆，然後加一（ＹＥＳ）
+            //在內存 將訂單列表+1（ＮＯ）
             NSUserDefaults *writeDefaults = [NSUserDefaults standardUserDefaults];
             [writeDefaults setInteger:([lCount integerValue]+1) forKey:@"OrderListAmount"]; //訂單列表
             [writeDefaults synchronize];

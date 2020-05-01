@@ -26,6 +26,7 @@
 		88164043243B9A4300E24377 /* ProductIntroduceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88164041243B9A4300E24377 /* ProductIntroduceViewController.xib */; };
 		8858609C24435BA8001D9F85 /* CompleteOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8858609A24435BA8001D9F85 /* CompleteOrderViewController.m */; };
 		8858609D24435BA8001D9F85 /* CompleteOrderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8858609B24435BA8001D9F85 /* CompleteOrderViewController.xib */; };
+		887FCE15245C58E00084C42B /* Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 887FCE14245C58E00084C42B /* Singleton.m */; };
 		88CDFE4C243F8F52005C1A29 /* ConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CDFE4A243F8F52005C1A29 /* ConfirmViewController.m */; };
 		88CDFE4D243F8F52005C1A29 /* ConfirmViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 88CDFE4B243F8F52005C1A29 /* ConfirmViewController.xib */; };
 		88CDFE51243F9ABD005C1A29 /* ProductListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CDFE4F243F9ABD005C1A29 /* ProductListTableViewCell.m */; };
@@ -64,6 +65,8 @@
 		8858609924435BA8001D9F85 /* CompleteOrderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompleteOrderViewController.h; sourceTree = "<group>"; };
 		8858609A24435BA8001D9F85 /* CompleteOrderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CompleteOrderViewController.m; sourceTree = "<group>"; };
 		8858609B24435BA8001D9F85 /* CompleteOrderViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompleteOrderViewController.xib; sourceTree = "<group>"; };
+		887FCE13245C58E00084C42B /* Singleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		887FCE14245C58E00084C42B /* Singleton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Singleton.m; sourceTree = "<group>"; };
 		88CDFE49243F8F52005C1A29 /* ConfirmViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfirmViewController.h; sourceTree = "<group>"; };
 		88CDFE4A243F8F52005C1A29 /* ConfirmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfirmViewController.m; sourceTree = "<group>"; };
 		88CDFE4B243F8F52005C1A29 /* ConfirmViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmViewController.xib; sourceTree = "<group>"; };
@@ -114,6 +117,8 @@
 		7C67B5D12436E6B9002AFDAD /* NewBakery */ = {
 			isa = PBXGroup;
 			children = (
+				887FCE13245C58E00084C42B /* Singleton.h */,
+				887FCE14245C58E00084C42B /* Singleton.m */,
 				7C67B5EB2436E6E7002AFDAD /* Login */,
 				7C67B5EC2436E6F4002AFDAD /* HomeView */,
 				8816403E243B9A1A00E24377 /* ProductIntroduce */,
@@ -332,6 +337,7 @@
 				7C67B5E52436E6BB002AFDAD /* main.m in Sources */,
 				88CDFE4C243F8F52005C1A29 /* ConfirmViewController.m in Sources */,
 				88CDFE51243F9ABD005C1A29 /* ProductListTableViewCell.m in Sources */,
+				887FCE15245C58E00084C42B /* Singleton.m in Sources */,
 				7C67B5D72436E6B9002AFDAD /* SceneDelegate.m in Sources */,
 				7C67B5F02436E707002AFDAD /* LoginViewController.m in Sources */,
 			);

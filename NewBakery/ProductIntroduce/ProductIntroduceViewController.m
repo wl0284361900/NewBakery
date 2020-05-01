@@ -9,6 +9,7 @@
 #import "ProductIntroduceViewController.h"
 #import "ConfirmViewController.h"
 
+#import "Singleton.h"
 #import <SDWebImage/SDWebImage.h>
 #import <FirebaseFirestore/FirebaseFirestore.h>
 @interface ProductIntroduceViewController()<UITextFieldDelegate, UIGestureRecognizerDelegate>{
@@ -34,6 +35,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.pContentTV.editable = NO;
+    
     [self.pImg sd_setImageWithURL:[NSURL URLWithString:self.pImgStr]];
     self.pNamelb.text = self.pNameStr;
     self.pContentTV.text = self.pContentStr;
@@ -87,7 +90,7 @@
     NSDate *now = [[NSDate alloc]init];
     NSString *currentDateString = [formatter stringFromDate:now];
     
-    NSDictionary *dic = @{@"name":@"ChunYi-Chan"};
+    NSDictionary *dic = @{@"name":[Singleton sharedInstance].userId};
     NSDictionary *pdic = @{@"productName":self.pNameStr};
     NSDictionary *parameterdic = @{
         @"pName":pdic[@"productName"],
