@@ -7,7 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "LoginViewController.h"
+
 #import <FirebaseFirestore/FirebaseFirestore.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FirebaseAuth/FirebaseAuth.h>
 @import Firebase;
 @interface AppDelegate ()
 
@@ -17,10 +21,24 @@
 @implementation AppDelegate
 
 
+//FB導向
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey] ]; // Add any custom logic here.
+    return handled;
+}
+    
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     [FIRApp configure];
-//    FIRFirestore *defaultFirestore = [FIRFirestore firestore];
+
+    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+    // Add any custom logic here.
+    
+    LoginViewController *home = [[LoginViewController alloc]initWithNibName:@"LoginViewController" bundle:nil];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:home];
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

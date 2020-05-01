@@ -7,7 +7,7 @@
 //
 
 #import "SceneDelegate.h"
-
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 @interface SceneDelegate ()
 
 @end
@@ -15,6 +15,21 @@
 @implementation SceneDelegate
 
 
+// Objective-C
+// SceneDelegate.m
+
+
+
+    
+- (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
+    UIOpenURLContext *openURLContext = URLContexts.allObjects.firstObject;
+    if (openURLContext) {
+        [[FBSDKApplicationDelegate sharedInstance] application:UIApplication.sharedApplication openURL:openURLContext.URL sourceApplication:openURLContext.options.sourceApplication annotation:openURLContext.options.annotation];
+        
+    } // Add any custom logic here.
+    
+}
+    
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.

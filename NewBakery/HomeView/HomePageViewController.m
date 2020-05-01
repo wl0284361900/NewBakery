@@ -14,6 +14,7 @@
 #import <FirebaseFirestore/FirebaseFirestore.h>
 #import <FirebaseAuth/FirebaseAuth.h>
 
+
 typedef enum productType{
     Bread,
     Snack,
@@ -112,15 +113,16 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
     //新增Auth監聽
     self.handle = [[FIRAuth auth]addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
-        if(user){
-            NSLog(@"登入成功");
+        if(user!=nil){
+            NSLog(@"登入成功%@",user.uid);
         }else{
-            NSLog(@"登出成功");
+            NSLog(@"登出");
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
-    
     
     
     
@@ -166,10 +168,19 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
     [self.mscrollView setContentOffset:CGPointMake(0, 0) animated:NO];
     
     [[FIRAuth auth] removeAuthStateDidChangeListener:self.handle];
+    
 }
 
 //暫時用
 - (void)ClickTmpBack{
+    NSError *signOutError;
+    @try {
+        [[FIRAuth auth]signOut:&signOutError];
+    } @catch (NSException *exception) {
+        NSLog(@"%@",signOutError);
+    } @finally {
+        
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
