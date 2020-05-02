@@ -12,12 +12,11 @@
 #import "CompleteOrderViewController.h"
 
 #import "Singleton.h"
-#import <FirebaseFirestore/FirebaseFirestore.h>
 @interface ConfirmViewController (){
     NSMutableArray *OrderArr;
     NSUserDefaults *orderUserDefault;
 }
-@property (strong, nonatomic) FIRFirestore *db;
+
 @end
 
 @implementation ConfirmViewController
@@ -37,16 +36,19 @@
     [self.confirmBtn addTarget:self action:@selector(clickConfirmProduct) forControlEvents:UIControlEventTouchUpInside];
     [self.deleteBtn addTarget:self action:@selector(clickDeleteProduct) forControlEvents:UIControlEventTouchUpInside];
     [self.backBtn addTarget:self action:@selector(clickBackLastView) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    self.db = [FIRFirestore firestore];
-//    [self readOrderFirebase];
 }
 
 - (void) clickConfirmProduct{
-    CompleteOrderViewController *complete = [[CompleteOrderViewController alloc]initWithNibName:@"CompleteOrderViewController" bundle:nil];
-    complete.OrderSearchArr = OrderArr;
-    [self.navigationController pushViewController:complete animated:YES];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"是否確定資料" message:[NSString stringWithFormat:@"確認訂單資料無誤，一但確定就無法更改資料"] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"確定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        CompleteOrderViewController *complete = [[CompleteOrderViewController alloc]initWithNibName:@"CompleteOrderViewController" bundle:nil];
+        complete.OrderSearchArr = self->OrderArr;
+        [self.navigationController pushViewController:complete animated:YES];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:okAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void) clickDeleteProduct{
@@ -113,24 +115,5 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-#pragma mark - Firebase
-- (void)readOrderFirebase{
-    //讀取
-    //用成Singleton
-    NSDictionary *nameDic = @{@"userName":[Singleton sharedInstance].userId};
-    
-    [[[[[self.db collectionWithPath:@"Order"]documentWithPath:nameDic[@"userName"]]collectionWithPath:@"Product"] queryOrderedByField:@"pTime"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
-        if(snapshot.count == 0){
-            return;
-        }
-        for(FIRDocumentSnapshot *docSnapshot in snapshot.documents){
-//            NSLog(@"%@",docSnapshot.data);
-            [self->OrderArr addObject:docSnapshot.data];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.mtableView reloadData];
-        });
-    }];
-    
-}
+
 @end

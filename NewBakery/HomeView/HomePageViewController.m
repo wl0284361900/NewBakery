@@ -73,8 +73,6 @@ static const NSInteger kRowNumber = 2;      //一行顯示的Cell數
             [self.navigationController popViewControllerAnimated:YES];
         }
     }];
-
-    
     
     //登出用
     fbManager = [[FBSDKLoginManager alloc]init];

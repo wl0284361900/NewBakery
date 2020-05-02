@@ -36,11 +36,10 @@
     [self.backHomeBtn addTarget:self action:@selector(clickBackHome) forControlEvents:UIControlEventTouchUpInside];
     
     self.db = [FIRFirestore firestore];
-    
+    [self readOrderFirebase];
 }
 
 - (void)clickBackHome{
-    
     //將"Prodcut"集合的所有文件裡面的值都寫入另外一個紀錄訂單的地方
     //刪除"Product"集合的所有文件（document）
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
@@ -51,19 +50,11 @@
     NSString *currentDateString = [formatter stringFromDate:now];
     
     NSDictionary *dic = @{@"name":[Singleton sharedInstance].userId};
-//    NSDictionary *pdic = @{@"productName":self.pNameStr};
     
     //從內存讀取 +1 之後 存入
     NSNumber *lCount;//第幾筆訂單   要儲存在內存：每次讀取舊的一筆資料，每次加一
-    NSUserDefaults *readDefaults = [NSUserDefaults standardUserDefaults];
-    lCount = [NSNumber numberWithInteger:[readDefaults integerForKey:@"OrderListAmount"]];
-    if([lCount intValue] == 0){
-        lCount = [NSNumber numberWithInteger:1];
-    }
-    NSLog(@"lCount:%d", [lCount intValue]);
     
-   
-//
+    lCount = [NSNumber numberWithInteger:[orderUserDefault integerForKey:@"OrderListAmount"]+1];
     NSDictionary *parameterdic = @{
         @"pList":self.OrderSearchArr,
         @"OLTime": currentDateString,   //OL = orderList 訂單列表
@@ -77,16 +68,10 @@
         }else{
             //清除內存
             [self->orderUserDefault setObject:nil forKey:@"orderListTemp"];
+            [self->orderUserDefault setObject:nil forKey:@"OrderListAmount"];
             [self->orderUserDefault synchronize];
             
-            
-            //應該是要讀資料庫裡面的資料有幾筆，然後加一（ＹＥＳ）
-            //在內存 將訂單列表+1（ＮＯ）
-            NSUserDefaults *writeDefaults = [NSUserDefaults standardUserDefaults];
-            [writeDefaults setInteger:([lCount integerValue]+1) forKey:@"OrderListAmount"]; //訂單列表
-            [writeDefaults synchronize];
-            
-            #warning 跳至首頁 且要發送「推播」 推波資料為[OrderSearch][userName]
+            #warning 跳至首頁 且要發送「推播」 推播資料為[OrderSearch][userName]
             //跳至首頁
             HomePageViewController *home = [[HomePageViewController alloc]init];
             UIViewController *target = nil;
@@ -103,18 +88,6 @@
         }
     }];
     
-    
-//    HomePageViewController *home = [[HomePageViewController alloc]init];
-//    UIViewController *target = nil;
-//
-//    for(UIViewController *controller in self.navigationController.viewControllers){
-//        if([controller isKindOfClass:[home class]]){
-//            target = controller;
-//        }
-//    }
-//    if(target){
-//        [self.navigationController popToViewController:target animated:YES];
-//    }
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
@@ -132,21 +105,14 @@
 }
 
 #pragma mark - Firebase
-//- (void)readOrderFirebase{
-//    //讀取
-//    //用成Singleton
-//    NSDictionary *nameDic = @{@"userName":@"ChunYi-Chan"};
-//
-//    [[[[[self.db collectionWithPath:@"Order"]documentWithPath:nameDic[@"userName"]]collectionWithPath:@"Product"] queryOrderedByField:@"pTime"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
-//        if(snapshot.count == 0){
-//            return;
-//        }
-//        for(FIRDocumentSnapshot *docSnapshot in snapshot.documents){
-////            [self->OrderArr addObject:docSnapshot.data];
-//        }
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.mtableView reloadData];
-//        });
-//    }];
-//}
+- (void)readOrderFirebase{
+    //讀取
+    //用成Singleton
+    NSDictionary *nameDic = @{@"userName":[Singleton sharedInstance].userId};
+
+    [[[[self.db collectionWithPath:@"OrderSearch"]documentWithPath:nameDic[@"userName"]]collectionWithPath:@"OrderList"]getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
+        [self->orderUserDefault setInteger:snapshot.count forKey:@"OrderListAmount"];
+        [self->orderUserDefault synchronize];
+    }];
+}
 @end
