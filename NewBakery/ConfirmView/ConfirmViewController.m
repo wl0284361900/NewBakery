@@ -15,6 +15,7 @@
 #import <FirebaseFirestore/FirebaseFirestore.h>
 @interface ConfirmViewController (){
     NSMutableArray *OrderArr;
+    NSUserDefaults *orderUserDefault;
 }
 @property (strong, nonatomic) FIRFirestore *db;
 @end
@@ -23,6 +24,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    orderUserDefault = [NSUserDefaults standardUserDefaults];
+    OrderArr = [[NSMutableArray alloc]initWithArray: [orderUserDefault objectForKey:@"orderListTemp"]];
+    
     self.mtableView.delegate = self;
     self.mtableView.dataSource = self;
     self.mtableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -33,9 +38,9 @@
     [self.deleteBtn addTarget:self action:@selector(clickDeleteProduct) forControlEvents:UIControlEventTouchUpInside];
     [self.backBtn addTarget:self action:@selector(clickBackLastView) forControlEvents:UIControlEventTouchUpInside];
     
-    OrderArr = [[NSMutableArray alloc]initWithCapacity:0];
+    
     self.db = [FIRFirestore firestore];
-    [self readOrderFirebase];
+//    [self readOrderFirebase];
 }
 
 - (void) clickConfirmProduct{
@@ -47,6 +52,7 @@
 - (void) clickDeleteProduct{
     //TableView的編輯、刪除
     //刪除資料庫內所點選的麵包產品
+    self.mtableView.editing = YES;
 }
 
 - (void) clickBackLastView{
@@ -63,6 +69,7 @@
     }
 }
 
+#pragma mark - TableView DataSource
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ProductListTableViewCell *cell = [[[NSBundle mainBundle]loadNibNamed:@"ProductListTableViewCell" owner:self options:nil]objectAtIndex:0];
     cell.oNumberLB.text = [NSString stringWithFormat:@"%ld", (indexPath.row + 1)];
@@ -75,6 +82,35 @@
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     //資料庫的訂單有幾筆資料
     return OrderArr.count;
+}
+
+#pragma mark - TableView Delegate
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return @"刪除";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"刪除該筆資料" message:[NSString stringWithFormat:@"是否要刪除「%@」",OrderArr[indexPath.row][@"pName"]] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"確定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self->OrderArr removeObjectAtIndex:indexPath.row];
+        [self->orderUserDefault setObject:self->OrderArr forKey:@"orderListTemp"];
+        [self->orderUserDefault synchronize];
+        //刷新？？？
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [self.mtableView reloadData];
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:okAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - Firebase

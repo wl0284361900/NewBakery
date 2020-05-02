@@ -11,8 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Singleton : NSObject
-@property (strong,nonatomic) NSString *userId;
-
+@property (strong, nonatomic) NSString *userId;
+@property (strong, nonatomic) NSMutableArray *orderListTemp;
 
 + (instancetype) sharedInstance;
 

@@ -12,7 +12,10 @@
 
 #import "Singleton.h"
 #import <FirebaseFirestore/FirebaseFirestore.h>
-@interface CompleteOrderViewController ()@property (strong, nonatomic) FIRFirestore *db;
+@interface CompleteOrderViewController (){
+    NSUserDefaults *orderUserDefault;
+}
+@property (strong, nonatomic) FIRFirestore *db;
 @end
 
 
@@ -21,6 +24,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    orderUserDefault = [NSUserDefaults standardUserDefaults];
+    
     self.mtableView.delegate = self;
     self.mtableView.dataSource = self;
     self.mtableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -69,11 +75,11 @@
         if(error != nil){
             //                    NSLog(@"Error writing document: %@", error);
         }else{
-            //刪除該資料庫文件
-            for(int i =0 ; i < self.OrderSearchArr.count; i++){
-                [[[[[self.db collectionWithPath:@"Order"]documentWithPath:dic[@"name"]]collectionWithPath:@"Product"] documentWithPath:self.OrderSearchArr[i][@"pName"]]deleteDocument];
-            }
-         
+            //清除內存
+            [self->orderUserDefault setObject:nil forKey:@"orderListTemp"];
+            [self->orderUserDefault synchronize];
+            
+            
             //應該是要讀資料庫裡面的資料有幾筆，然後加一（ＹＥＳ）
             //在內存 將訂單列表+1（ＮＯ）
             NSUserDefaults *writeDefaults = [NSUserDefaults standardUserDefaults];
@@ -81,6 +87,7 @@
             [writeDefaults synchronize];
             
             #warning 跳至首頁 且要發送「推播」 推波資料為[OrderSearch][userName]
+            //跳至首頁
             HomePageViewController *home = [[HomePageViewController alloc]init];
             UIViewController *target = nil;
             

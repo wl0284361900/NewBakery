@@ -15,6 +15,7 @@
 @interface ProductIntroduceViewController()<UITextFieldDelegate, UIGestureRecognizerDelegate>{
     UITapGestureRecognizer *clickBackground;
     NSMutableArray *OrderArr;
+    NSUserDefaults *orderUserDefault;
 }
 @property (strong, nonatomic) FIRFirestore *db;
 @end
@@ -34,7 +35,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+
     self.pContentTV.editable = NO;
     
     [self.pImg sd_setImageWithURL:[NSURL URLWithString:self.pImgStr]];
@@ -61,10 +62,17 @@
     
     //資料庫
     self.db = [FIRFirestore firestore];
-    OrderArr = [[NSMutableArray alloc]initWithCapacity:0];
-    [self readOrderFirebase];
+//    [self readOrderFirebase];
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    //初始化
+    orderUserDefault = [NSUserDefaults standardUserDefaults];
+    if([orderUserDefault objectForKey:@"orderListTemp"] != nil){
+        OrderArr = [[NSMutableArray alloc]initWithArray:[orderUserDefault objectForKey:@"orderListTemp"]];
+    }else{
+        OrderArr = [[NSMutableArray alloc]initWithCapacity:0];
+    }
+}
 - (void)viewDidAppear:(BOOL)animated{
     [self keyboardHide];
 }
@@ -83,6 +91,7 @@
     //寫入資料
     //用Singleton取出使用者的姓名 or(該專屬ID)，暫時先用寫死的姓名
    
+    //時間
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     [formatter setLocale: [[NSLocale alloc]initWithLocaleIdentifier:@"zh_Hant_TW"]];
     [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Taipei"]];
@@ -90,64 +99,78 @@
     NSDate *now = [[NSDate alloc]init];
     NSString *currentDateString = [formatter stringFromDate:now];
     
-    NSDictionary *dic = @{@"name":[Singleton sharedInstance].userId};
+    
+//    NSDictionary *dic = @{@"name":[Singleton sharedInstance].userId};
     NSDictionary *pdic = @{@"productName":self.pNameStr};
     NSDictionary *parameterdic = @{
         @"pName":pdic[@"productName"],
         @"pAmount":[NSNumber numberWithInteger:[self.pTextField.text integerValue]],
         @"pTime": currentDateString
     };
-//    NSLog(@"parameterdic Name:%@",parameterdic[@"pName"]);
+
     
-    __block BOOL repeat = NO;
     
-    [[[[[self.db collectionWithPath:@"Order"]documentWithPath:dic[@"name"]]collectionWithPath:@"Product"]queryWhereField:@"pName" isEqualTo:parameterdic[@"pName"]]getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
-        
-        id document = snapshot.documents.firstObject;
-        NSInteger amount = 0;
-        for(NSDictionary *orderDic in self->OrderArr){
-            if([orderDic[@"pName"] isEqualToString:parameterdic[@"pName"]]){
-                amount = [self.pTextField.text integerValue] + [orderDic[@"pAmount"] integerValue];
-                repeat = true;
-                break;
-            }
+    //線性搜尋（資料量大的時候不適用）
+    //如果目前這筆資料已存在就移除舊資料，新增新的。
+    for(int i = 0; i < OrderArr.count; i++){
+        if(pdic[@"productName"] == OrderArr[i][@"pName"]){
+            [OrderArr removeObjectAtIndex:i];
+            break;
         }
-        
-        if(repeat){
-            //如果有資料就累加上去
-            [[document reference]updateData:@{
-                @"pAmount": [NSNumber numberWithInteger:amount],
-                @"pTime":currentDateString
-            } completion:^(NSError * _Nullable error) {
-                if(error){
-                    //有可能因為沒開網路
-//                    NSLog(@"%@",error.localizedDescription);
-                }else{
-                    ConfirmViewController *confirm = [[ConfirmViewController alloc]initWithNibName:@"ConfirmViewController" bundle:[NSBundle mainBundle]];
-                    [self.navigationController pushViewController:confirm animated:YES];
-                }
-            } ];
-        }else{
-            //若沒有就加入
-            [[[[[self.db collectionWithPath:@"Order"]documentWithPath:dic[@"name"]]collectionWithPath:@"Product"]documentWithPath:parameterdic[@"pName"]]setData:parameterdic completion:^(NSError * _Nullable error) {
-                if(error != nil){
-//                    NSLog(@"Error writing document: %@", error);
-                }else{
-//                    NSLog(@"Document successfully written!");
-                    ConfirmViewController *confirm = [[ConfirmViewController alloc]initWithNibName:@"ConfirmViewController" bundle:[NSBundle mainBundle]];
-                    [self.navigationController pushViewController:confirm animated:YES];
-                }
-                
-            }];
-        }
-    }];
+    }
+    //如果沒有存在就存到內存裡面
+    [OrderArr addObject:parameterdic];
+    [orderUserDefault setObject:OrderArr forKey:@"orderListTemp"];
+    [orderUserDefault synchronize];
+    
+    ConfirmViewController *confirm = [[ConfirmViewController alloc]initWithNibName:@"ConfirmViewController" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:confirm animated:YES];
+    
+//    __block BOOL repeat = NO;
+//    [[[[[self.db collectionWithPath:@"Order"]documentWithPath:dic[@"name"]]collectionWithPath:@"Product"]queryWhereField:@"pName" isEqualTo:parameterdic[@"pName"]]getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
+//
+//        id document = snapshot.documents.firstObject;
+//        NSInteger amount = 0;
+//        for(NSDictionary *orderDic in self->OrderArr){
+//            if([orderDic[@"pName"] isEqualToString:parameterdic[@"pName"]]){
+//                amount = [self.pTextField.text integerValue] + [orderDic[@"pAmount"] integerValue];
+//                repeat = true;
+//                break;
+//            }
+//        }
+//
+//        if(repeat){
+//            //如果有資料就累加上去
+//            [[document reference]updateData:@{
+//                @"pAmount": [NSNumber numberWithInteger:amount],
+//                @"pTime":currentDateString
+//            } completion:^(NSError * _Nullable error) {
+//                if(error){
+//                    //有可能因為沒開網路
+////                    NSLog(@"%@",error.localizedDescription);
+//                }else{
+//                    ConfirmViewController *confirm = [[ConfirmViewController alloc]initWithNibName:@"ConfirmViewController" bundle:[NSBundle mainBundle]];
+//                    [self.navigationController pushViewController:confirm animated:YES];
+//                }
+//            } ];
+//        }else{
+//            //若沒有就加入
+//            [[[[[self.db collectionWithPath:@"Order"]documentWithPath:dic[@"name"]]collectionWithPath:@"Product"]documentWithPath:parameterdic[@"pName"]]setData:parameterdic completion:^(NSError * _Nullable error) {
+//                if(error != nil){
+////                    NSLog(@"Error writing document: %@", error);
+//                }else{
+////                    NSLog(@"Document successfully written!");
+//                    ConfirmViewController *confirm = [[ConfirmViewController alloc]initWithNibName:@"ConfirmViewController" bundle:[NSBundle mainBundle]];
+//                    [self.navigationController pushViewController:confirm animated:YES];
+//                }
+//
+//            }];
+//        }
+//    }];
 }
+
 
 #pragma mark - TextFieldDeleagte
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
-    
-}
-
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     [self keyboardHide];
 }
@@ -159,26 +182,25 @@
 
 - (void)keyboardHide{
     [self.pTextField resignFirstResponder];
-//    self.topContraint.constant = 0.1f;
     self.view.superview.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
 }
 
 #pragma mark - Firebase
 #pragma mark 讀取
-- (void)readOrderFirebase{
+//- (void)readOrderFirebase{
     //讀取
     //用成Singleton
-    NSDictionary *nameDic = @{@"userName":@"ChunYi-Chan"};
+//    NSDictionary *nameDic = @{@"userName":@"ChunYi-Chan"};
+//
+//    [[[[[self.db collectionWithPath:@"Order"]documentWithPath:nameDic[@"userName"]]collectionWithPath:@"Product"] queryOrderedByField:@"pTime"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
+//        if(snapshot.count == 0){
+//            return;
+//        }
+//        for(FIRDocumentSnapshot *docSnapshot in snapshot.documents){
+//            [self->OrderArr addObject:docSnapshot.data];
+//        }
+//
+//    }];
     
-    [[[[[self.db collectionWithPath:@"Order"]documentWithPath:nameDic[@"userName"]]collectionWithPath:@"Product"] queryOrderedByField:@"pTime"] getDocumentsWithCompletion:^(FIRQuerySnapshot * _Nullable snapshot, NSError * _Nullable error) {
-        if(snapshot.count == 0){
-            return;
-        }
-        for(FIRDocumentSnapshot *docSnapshot in snapshot.documents){
-            [self->OrderArr addObject:docSnapshot.data];
-        }
-        
-    }];
-    
-}
+//}
 @end

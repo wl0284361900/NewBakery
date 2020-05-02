@@ -8,12 +8,15 @@
 
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "Singleton.h"
 
 #import <FirebaseFirestore/FirebaseFirestore.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FirebaseAuth/FirebaseAuth.h>
 @import Firebase;
-@interface AppDelegate ()
+@interface AppDelegate (){
+    NSUserDefaults *orderUserDefault;
+}
 
 @end
 
@@ -34,7 +37,14 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     // Add any custom logic here.
     
-   
+    //初始化內存和Singleton
+    orderUserDefault = [NSUserDefaults standardUserDefaults];
+    [Singleton sharedInstance].orderListTemp = [[NSMutableArray alloc]initWithCapacity:0];
+    
+    //如果有上次未完成的訂單，則將內存資料copy一份到Singleton
+    if([orderUserDefault objectForKey:@"orderListTemp"] != nil){
+        [Singleton sharedInstance].orderListTemp = [[NSMutableArray alloc]initWithArray:[orderUserDefault objectForKey:@"orderListTemp"]];
+    }
     
     return YES;
 }
