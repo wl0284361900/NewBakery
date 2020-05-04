@@ -9,6 +9,9 @@
 #import "HomePageViewController.h"
 #import "ProductMenuCollectionViewCell.h"
 #import "ProductIntroduceViewController.h"
+#import <LGSideMenuController/LGSideMenuController.h>
+#import <LGSideMenuController/UIViewController+LGSideMenuController.h>
+
 
 #import "Singleton.h"
 #import <SDWebImage/SDWebImage.h>
